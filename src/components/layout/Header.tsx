@@ -52,15 +52,22 @@ export const Header = () => {
                 </div>
             </div>
 
-            {menuOpen && (
-                <nav id="mobile-menu" aria-label="手機選單" className="border-t border-white/10 bg-brand-light md:hidden">
-                    {NAV_ITEMS.map(item => (
-                        <a key={item.id} href={`#${item.id}`} onClick={() => setMenuOpen(false)} className={`flex min-h-12 items-center px-6 ${active === item.id ? "text-accent" : ""}`}>
-                            {item.label}
-                        </a>
-                    ))}
-                </nav>
-            )}
+            <nav
+                id="mobile-menu"
+                aria-label="手機選單"
+                inert={!menuOpen}
+                className={`grid bg-brand-light transition-[grid-template-rows,visibility] duration-300 ease-out motion-reduce:transition-none md:hidden ${menuOpen ? "visible grid-rows-[1fr]" : "invisible grid-rows-[0fr]"}`}
+            >
+                <div className="overflow-hidden">
+                    <div className="border-t border-white/10">
+                        {NAV_ITEMS.map(item => (
+                            <a key={item.id} href={`#${item.id}`} onClick={() => setMenuOpen(false)} className={`flex min-h-12 items-center px-6 ${active === item.id ? "text-accent" : ""}`}>
+                                {item.label}
+                            </a>
+                        ))}
+                    </div>
+                </div>
+            </nav>
         </header>
     );
 };
