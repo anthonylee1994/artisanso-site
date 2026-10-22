@@ -62,7 +62,17 @@ export const QuoteForm = () => {
                         <label htmlFor="name" className="mb-1 block font-semibold">
                             稱呼 <span className="text-red-600">*</span>
                         </label>
-                        <input id="name" name="name" type="text" autoComplete="name" value={draft.name} onChange={e => update("name", e.target.value)} className={FIELD_CLASS} {...ariaFor("name")} />
+                        <input
+                            id="name"
+                            name="name"
+                            type="text"
+                            placeholder="例：李先生"
+                            autoComplete="name"
+                            value={draft.name}
+                            onChange={e => update("name", e.target.value)}
+                            className={FIELD_CLASS}
+                            {...ariaFor("name")}
+                        />
                         {errorText("name")}
                     </div>
 
@@ -90,6 +100,7 @@ export const QuoteForm = () => {
                             name="area"
                             type="number"
                             inputMode="numeric"
+                            placeholder="例：700"
                             min={1}
                             max={99999}
                             value={draft.area}
