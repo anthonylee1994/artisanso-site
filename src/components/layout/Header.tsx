@@ -46,7 +46,15 @@ export const Header = () => {
                         className="flex h-11 w-11 items-center justify-center md:hidden"
                     >
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-                            {menuOpen ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
+                            <path
+                                d="M4 7h16"
+                                className={`origin-center transition-[translate,rotate] duration-300 ease-out transform-fill motion-reduce:transition-none ${menuOpen ? "translate-y-1.25 rotate-45" : ""}`}
+                            />
+                            <path d="M4 12h16" className={`origin-center transition-opacity duration-200 motion-reduce:transition-none ${menuOpen ? "opacity-0" : ""}`} />
+                            <path
+                                d="M4 17h16"
+                                className={`origin-center transition-[translate,rotate] duration-300 ease-out transform-fill motion-reduce:transition-none ${menuOpen ? "-translate-y-1.25 -rotate-45" : ""}`}
+                            />
                         </svg>
                     </button>
                 </div>
@@ -59,7 +67,7 @@ export const Header = () => {
                 className={`grid bg-brand-light transition-[grid-template-rows,visibility] duration-300 ease-out motion-reduce:transition-none md:hidden ${menuOpen ? "visible grid-rows-[1fr]" : "invisible grid-rows-[0fr]"}`}
             >
                 <div className="overflow-hidden">
-                    <div className="border-t border-white/10">
+                    <div className="border-t border-white/10 py-2">
                         {NAV_ITEMS.map(item => (
                             <a key={item.id} href={`#${item.id}`} onClick={() => setMenuOpen(false)} className={`flex min-h-12 items-center px-6 ${active === item.id ? "text-accent" : ""}`}>
                                 {item.label}
