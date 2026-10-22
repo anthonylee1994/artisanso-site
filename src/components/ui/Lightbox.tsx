@@ -1,4 +1,5 @@
 import React from "react";
+import {FiChevronLeft, FiChevronRight} from "react-icons/fi";
 import type {Project} from "../../types";
 
 type LightboxProps = {
@@ -47,10 +48,17 @@ export const Lightbox = (props: LightboxProps) => {
         else if (delta < -SWIPE_THRESHOLD) props.onNext();
     };
 
-    const arrowClass = "absolute top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-2xl text-white hover:bg-black/70";
+    const arrowClass = "absolute top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-3xl text-white hover:bg-black/70";
 
     return (
-        <div ref={dialogRef} role="dialog" aria-modal="true" aria-label={project.name} onKeyDown={onKeyDown} className="fixed inset-0 z-50 flex flex-col bg-black/90">
+        <div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={project.name}
+            onKeyDown={onKeyDown}
+            className="animate-lightbox-fade fixed inset-0 z-50 flex flex-col bg-black/90 motion-reduce:animate-none"
+        >
             <div className="flex items-center justify-between px-4 py-3 text-white">
                 <div>
                     <div className="font-bold">{project.name}</div>
@@ -71,14 +79,14 @@ export const Lightbox = (props: LightboxProps) => {
                 onTouchStart={e => (touchStartX.current = e.touches[0].clientX)}
                 onTouchEnd={onTouchEnd}
             >
-                <img src={image.src} alt={image.alt} className="max-h-full max-w-full object-contain" />
+                <img key={image.src} src={image.src} alt={image.alt} className="animate-lightbox-zoom max-h-full max-w-full object-contain motion-reduce:animate-none" />
                 {multiple && (
                     <React.Fragment>
                         <button type="button" aria-label="上一張" onClick={props.onPrev} className={`${arrowClass} left-2`}>
-                            ‹
+                            <FiChevronLeft aria-hidden="true" />
                         </button>
                         <button type="button" aria-label="下一張" onClick={props.onNext} className={`${arrowClass} right-2`}>
-                            ›
+                            <FiChevronRight aria-hidden="true" />
                         </button>
                     </React.Fragment>
                 )}

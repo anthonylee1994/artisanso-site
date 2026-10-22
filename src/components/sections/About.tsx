@@ -1,23 +1,24 @@
+import {LuBadgeDollarSign, LuHardHat, LuMapPin, LuRuler} from "react-icons/lu";
 import {SectionTitle} from "../ui/SectionTitle";
 
 const SELLING_POINTS = [
     {
-        icon: "📐",
+        icon: LuRuler,
         title: "免費上門量度報價",
         text: "專人上門量度，當場說明工程範圍及預算。",
     },
     {
-        icon: "💰",
+        icon: LuBadgeDollarSign,
         title: "價錢透明，無隱藏收費",
         text: "報價逐項列明，完工後不會突然加價。",
     },
     {
-        icon: "🔨",
+        icon: LuHardHat,
         title: "專業師傅團隊",
         text: "水電、木工、泥水、油漆，均由自家師傅負責。",
     },
     {
-        icon: "📍",
+        icon: LuMapPin,
         title: "服務香港各區",
         text: "本地團隊，上門快、售後跟進方便。",
     },
@@ -34,9 +35,7 @@ export const About = () => {
                 <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                     {SELLING_POINTS.map(p => (
                         <li key={p.title} className="rounded-lg bg-white p-6 text-center shadow-sm">
-                            <div className="text-4xl" aria-hidden="true">
-                                {p.icon}
-                            </div>
+                            <p.icon className="text-accent mx-auto h-10 w-10" aria-hidden="true" />
                             <h3 className="mt-3 font-bold">{p.title}</h3>
                             <p className="text-brand-light mt-2 text-sm">{p.text}</p>
                         </li>
