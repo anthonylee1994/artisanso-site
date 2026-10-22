@@ -1,0 +1,48 @@
+import {SectionTitle} from "../ui/SectionTitle";
+
+const SELLING_POINTS = [
+    {
+        icon: "📐",
+        title: "免費上門量度報價",
+        text: "專人上門量度，當場說明工程範圍及預算。",
+    },
+    {
+        icon: "💰",
+        title: "價錢透明，無隱藏收費",
+        text: "報價逐項列明，完工後不會突然加價。",
+    },
+    {
+        icon: "🔨",
+        title: "專業師傅團隊",
+        text: "水電、木工、泥水、油漆，均由自家師傅負責。",
+    },
+    {
+        icon: "📍",
+        title: "服務香港各區",
+        text: "本地團隊，上門快、售後跟進方便。",
+    },
+];
+
+export const About = () => {
+    return (
+        <section id="about" className="scroll-mt-16 px-4 py-16">
+            <div className="mx-auto max-w-6xl">
+                <SectionTitle title="關於匠方工程" />
+                <p className="mx-auto max-w-2xl text-center leading-8">
+                    匠方工程專注住宅及商業單位裝修工程，由設計商討、施工到驗收，全程由同一班師傅跟進。我們相信好的裝修就在細節，每個項目都按客戶預算和需要度身安排，準時交樓、價錢清楚。
+                </p>
+                <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                    {SELLING_POINTS.map(p => (
+                        <li key={p.title} className="rounded-lg bg-white p-6 text-center shadow-sm">
+                            <div className="text-4xl" aria-hidden="true">
+                                {p.icon}
+                            </div>
+                            <h3 className="mt-3 font-bold">{p.title}</h3>
+                            <p className="text-brand-light mt-2 text-sm">{p.text}</p>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </section>
+    );
+};

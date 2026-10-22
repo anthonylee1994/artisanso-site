@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@theme {
+    --color-brand: #2b2622;
+    --color-brand-light: #4a413a;
+    --color-accent: #b8864b;
+    --color-accent-dark: #96693a;
+    --color-surface: #f7f2ea;
+    --color-whatsapp: #25d366;
+    --font-sans: "PingFang HK", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    @apply bg-surface text-brand font-sans antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
