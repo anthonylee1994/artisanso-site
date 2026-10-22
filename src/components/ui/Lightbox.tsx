@@ -57,7 +57,7 @@ export const Lightbox = (props: LightboxProps) => {
             aria-modal="true"
             aria-label={project.name}
             onKeyDown={onKeyDown}
-            className="animate-lightbox-fade fixed inset-0 z-50 flex flex-col bg-black/90 motion-reduce:animate-none"
+            className="fixed inset-0 z-50 flex animate-lightbox-fade flex-col bg-black/90 motion-reduce:animate-none"
         >
             <div className="flex items-center justify-between px-4 py-3 text-white">
                 <div>
@@ -79,7 +79,7 @@ export const Lightbox = (props: LightboxProps) => {
                 onTouchStart={e => (touchStartX.current = e.touches[0].clientX)}
                 onTouchEnd={onTouchEnd}
             >
-                <img key={image.src} src={image.src} alt={image.alt} className="animate-lightbox-zoom max-h-full max-w-full object-contain motion-reduce:animate-none" />
+                <img key={image.src} src={image.src} alt={image.alt} className="max-h-full max-w-full animate-lightbox-zoom object-contain motion-reduce:animate-none" />
                 {multiple && (
                     <React.Fragment>
                         <button type="button" aria-label="上一張" onClick={props.onPrev} className={`${arrowClass} left-2`}>

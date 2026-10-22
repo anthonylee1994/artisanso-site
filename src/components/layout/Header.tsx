@@ -14,7 +14,7 @@ export const Header = () => {
     const active = useActiveSection(NAV_ITEMS.map(i => i.id));
 
     return (
-        <header className="bg-brand sticky top-0 z-30 text-white shadow">
+        <header className="sticky top-0 z-30 bg-brand text-white shadow">
             <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
                 <a href="#top" className="flex min-h-11 items-center gap-2 text-lg font-bold">
                     <img src="/logo.svg" alt="" width={32} height={32} />
@@ -34,7 +34,7 @@ export const Header = () => {
                 </nav>
 
                 <div className="flex items-center gap-2">
-                    <a href="#quote" className="bg-accent hover:bg-accent-dark flex min-h-11 items-center rounded px-4 font-semibold transition">
+                    <a href="#quote" className="flex min-h-11 items-center rounded bg-accent px-4 font-semibold transition hover:bg-accent-dark">
                         即時報價
                     </a>
                     <button
@@ -53,7 +53,7 @@ export const Header = () => {
             </div>
 
             {menuOpen && (
-                <nav id="mobile-menu" aria-label="手機選單" className="bg-brand-light border-t border-white/10 md:hidden">
+                <nav id="mobile-menu" aria-label="手機選單" className="border-t border-white/10 bg-brand-light md:hidden">
                     {NAV_ITEMS.map(item => (
                         <a key={item.id} href={`#${item.id}`} onClick={() => setMenuOpen(false)} className={`flex min-h-12 items-center px-6 ${active === item.id ? "text-accent" : ""}`}>
                             {item.label}

@@ -132,11 +132,11 @@ export const QuoteForm = () => {
                             className={FIELD_CLASS}
                             {...ariaFor("requirement")}
                         />
-                        <div className="text-brand-light text-right text-xs">{draft.requirement.length} / 500</div>
+                        <div className="text-right text-xs text-brand-light">{draft.requirement.length} / 500</div>
                         {errorText("requirement")}
                     </div>
 
-                    <button type="submit" className="bg-whatsapp flex min-h-12 w-full items-center justify-center gap-2 rounded font-bold text-white transition hover:brightness-95">
+                    <button type="submit" className="flex min-h-12 w-full items-center justify-center gap-2 rounded bg-whatsapp font-bold text-white transition hover:brightness-95">
                         <WhatsAppIcon className="h-6 w-6" />
                         WhatsApp 即時報價
                     </button>

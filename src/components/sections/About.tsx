@@ -35,9 +35,9 @@ export const About = () => {
                 <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                     {SELLING_POINTS.map(p => (
                         <li key={p.title} className="rounded-lg bg-white p-6 text-center shadow-sm">
-                            <p.icon className="text-accent mx-auto h-10 w-10" aria-hidden="true" />
+                            <p.icon className="mx-auto h-10 w-10 text-accent" aria-hidden="true" />
                             <h3 className="mt-3 font-bold">{p.title}</h3>
-                            <p className="text-brand-light mt-2 text-sm">{p.text}</p>
+                            <p className="mt-2 text-sm text-brand-light">{p.text}</p>
                         </li>
                     ))}
                 </ul>

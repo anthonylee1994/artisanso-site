@@ -5,7 +5,7 @@ import {WhatsAppIcon} from "../ui/WhatsAppIcon";
 
 export const Contact = () => {
     return (
-        <section id="contact" className="bg-brand scroll-mt-16 px-4 py-16 text-white">
+        <section id="contact" className="scroll-mt-16 bg-brand px-4 py-16 text-white">
             <div className="mx-auto max-w-2xl text-center">
                 <SectionTitle title="聯絡我們" light />
                 <ul className="space-y-4 text-lg">
@@ -26,7 +26,7 @@ export const Contact = () => {
                     href={WA_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-whatsapp mt-8 inline-flex min-h-12 items-center justify-center gap-2 rounded px-6 font-bold text-white transition hover:brightness-95"
+                    className="mt-8 inline-flex min-h-12 items-center justify-center gap-2 rounded bg-whatsapp px-6 font-bold text-white transition hover:brightness-95"
                 >
                     <WhatsAppIcon className="h-6 w-6" />
                     WhatsApp 查詢
