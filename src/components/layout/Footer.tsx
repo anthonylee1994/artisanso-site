@@ -1,5 +1,5 @@
 import React from "react";
-import {COMPANY_NAME} from "../../constants/Contact";
+import {COMPANY_NAME} from "../../constants/contact";
 
 export const Footer = () => {
     return (

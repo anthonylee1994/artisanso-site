@@ -1,5 +1,5 @@
 import React from "react";
-import {EMAIL, PHONE, PHONE_HREF, WA_URL} from "../../constants/Contact";
+import {EMAIL, PHONE, PHONE_HREF, WA_URL} from "../../constants/contact";
 import {SectionTitle} from "../ui/SectionTitle";
 import {WhatsAppIcon} from "../ui/WhatsAppIcon";
 

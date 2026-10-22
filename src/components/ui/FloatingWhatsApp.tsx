@@ -1,5 +1,5 @@
 import React from "react";
-import {WA_URL} from "../../constants/Contact";
+import {WA_URL} from "../../constants/contact";
 import {WhatsAppIcon} from "./WhatsAppIcon";
 
 export const FloatingWhatsApp = () => {
