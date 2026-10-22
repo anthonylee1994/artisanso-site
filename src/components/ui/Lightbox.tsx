@@ -1,10 +1,12 @@
 import React from "react";
 import {FiChevronLeft, FiChevronRight} from "react-icons/fi";
+import type {SlideDirection} from "../../hooks/useLightbox";
 import type {Project} from "../../types";
 
 type LightboxProps = {
     project: Project;
     index: number;
+    direction: SlideDirection | null;
     onClose: () => void;
     onNext: () => void;
     onPrev: () => void;
@@ -48,6 +50,8 @@ export const Lightbox = (props: LightboxProps) => {
         else if (delta < -SWIPE_THRESHOLD) props.onNext();
     };
 
+    const imageAnimation = props.direction === "next" ? "animate-lightbox-slide-next" : props.direction === "prev" ? "animate-lightbox-slide-prev" : "animate-lightbox-zoom";
+
     const arrowClass = "absolute top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-3xl text-white hover:bg-black/70";
 
     return (
@@ -79,7 +83,7 @@ export const Lightbox = (props: LightboxProps) => {
                 onTouchStart={e => (touchStartX.current = e.touches[0].clientX)}
                 onTouchEnd={onTouchEnd}
             >
-                <img key={image.src} src={image.src} alt={image.alt} className="max-h-full max-w-full animate-lightbox-zoom object-contain motion-reduce:animate-none" />
+                <img key={image.src} src={image.src} alt={image.alt} className={`max-h-full max-w-full ${imageAnimation} object-contain motion-reduce:animate-none`} />
                 {multiple && (
                     <React.Fragment>
                         <button type="button" aria-label="上一張" onClick={props.onPrev} className={`${arrowClass} left-2`}>

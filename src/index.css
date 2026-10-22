@@ -12,6 +12,31 @@
     --animate-lightbox-fade: lightbox-fade 200ms ease-out;
     --animate-lightbox-zoom: lightbox-zoom 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
 
+    --animate-lightbox-slide-next: lightbox-slide-next 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    --animate-lightbox-slide-prev: lightbox-slide-prev 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
+
+    @keyframes lightbox-slide-next {
+        from {
+            opacity: 0;
+            transform: translateX(80px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes lightbox-slide-prev {
+        from {
+            opacity: 0;
+            transform: translateX(-80px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
     @keyframes lightbox-fade {
         from {
             opacity: 0;
@@ -38,7 +63,7 @@ html {
 }
 
 body {
-    @apply bg-surface text-brand font-sans antialiased;
+    @apply bg-surface font-sans text-brand antialiased;
 }
 
 @media (prefers-reduced-motion: reduce) {

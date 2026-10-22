@@ -64,7 +64,7 @@ export const Showcase = () => {
                 </div>
             </div>
 
-            {lightbox.project && <Lightbox project={lightbox.project} index={lightbox.index} onClose={lightbox.close} onNext={lightbox.next} onPrev={lightbox.prev} />}
+            {lightbox.project && <Lightbox project={lightbox.project} index={lightbox.index} direction={lightbox.direction} onClose={lightbox.close} onNext={lightbox.next} onPrev={lightbox.prev} />}
         </section>
     );
 };

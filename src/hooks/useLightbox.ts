@@ -1,26 +1,32 @@
 import React from "react";
 import type {Project} from "../types";
 
+export type SlideDirection = "next" | "prev";
+
 export function useLightbox() {
     const [project, setProject] = React.useState<Project | null>(null);
     const [index, setIndex] = React.useState(0);
+    const [direction, setDirection] = React.useState<SlideDirection | null>(null);
     const triggerRef = React.useRef<HTMLElement | null>(null);
 
     const open = (target: Project, trigger: HTMLElement | null) => {
         triggerRef.current = trigger;
         setProject(target);
         setIndex(0);
+        setDirection(null);
     };
 
     const close = () => setProject(null);
 
     const next = () => {
         if (!project) return;
+        setDirection("next");
         setIndex(i => (i + 1) % project.images.length);
     };
 
     const prev = () => {
         if (!project) return;
+        setDirection("prev");
         setIndex(i => (i - 1 + project.images.length) % project.images.length);
     };
 
@@ -50,5 +56,5 @@ export function useLightbox() {
         return () => window.removeEventListener("keydown", onKeyDown);
     });
 
-    return {project, index, isOpen, open, close, next, prev};
+    return {project, index, direction, isOpen, open, close, next, prev};
 }
