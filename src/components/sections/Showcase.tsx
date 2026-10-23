@@ -1,9 +1,9 @@
 import React from "react";
-import {CATEGORIES, PROJECTS} from "../../data/projects";
-import {useLightbox} from "../../hooks/useLightbox";
-import type {Project} from "../../types";
-import {Lightbox} from "../ui/Lightbox";
-import {SectionTitle} from "../ui/SectionTitle";
+import {CATEGORIES, PROJECTS} from "@/data/projects";
+import {useLightbox} from "@/hooks/useLightbox";
+import type {Project} from "@/types";
+import {Lightbox} from "@/components/ui/Lightbox";
+import {SectionTitle} from "@/components/ui/SectionTitle";
 
 type ProjectCardProps = {
     project: Project;

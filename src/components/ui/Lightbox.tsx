@@ -1,7 +1,7 @@
 import React from "react";
 import {FiChevronLeft, FiChevronRight} from "react-icons/fi";
-import type {SlideDirection} from "../../hooks/useLightbox";
-import type {Project} from "../../types";
+import type {SlideDirection} from "@/hooks/useLightbox";
+import type {Project} from "@/types";
 
 type LightboxProps = {
     project: Project;

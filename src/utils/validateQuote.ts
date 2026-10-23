@@ -1,4 +1,4 @@
-import {UNIT_TYPES, type QuoteFormDraft, type QuoteFormErrors, type QuoteFormValues, type UnitType} from "../types";
+import {UNIT_TYPES, type QuoteFormDraft, type QuoteFormErrors, type QuoteFormValues, type UnitType} from "@/types";
 
 export const FIELD_ORDER = ["name", "unitType", "area", "district", "requirement"] as const;
 

@@ -1,5 +1,5 @@
-import {WA_NUMBER} from "../constants/contact";
-import type {QuoteFormValues} from "../types";
+import {WA_NUMBER} from "@/constants/contact";
+import type {QuoteFormValues} from "@/types";
 
 export function buildWhatsAppUrl(values: QuoteFormValues): string {
     const lines = [

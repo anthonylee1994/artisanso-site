@@ -1,6 +1,6 @@
-import {EMAIL, PHONE, PHONE_HREF, WA_URL} from "../../constants/contact";
-import {SectionTitle} from "../ui/SectionTitle";
-import {WhatsAppIcon} from "../ui/WhatsAppIcon";
+import {EMAIL, PHONE, PHONE_HREF, WA_URL} from "@/constants/contact";
+import {SectionTitle} from "@/components/ui/SectionTitle";
+import {WhatsAppIcon} from "@/components/ui/WhatsAppIcon";
 
 export const Contact = () => {
     return (

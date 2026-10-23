@@ -1,5 +1,5 @@
 import React from "react";
-import type {Project} from "../types";
+import type {Project} from "@/types";
 
 export type SlideDirection = "next" | "prev";
 

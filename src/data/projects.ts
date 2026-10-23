@@ -1,6 +1,6 @@
-import type {Project, ProjectCategory} from "../types";
+import type {Project, ProjectCategory} from "@/types";
 
-const imageModules = import.meta.glob("../assets/projects/*/*.svg", {
+const imageModules = import.meta.glob("@/assets/projects/*/*.svg", {
     eager: true,
     query: "?url",
     import: "default",

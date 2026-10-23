@@ -1,9 +1,9 @@
 import React from "react";
-import {UNIT_TYPES, type QuoteFormDraft, type QuoteFormErrors} from "../../types";
-import {FIELD_ORDER, validateQuote} from "../../utils/validateQuote";
-import {buildWhatsAppUrl} from "../../utils/whatsapp";
-import {SectionTitle} from "../ui/SectionTitle";
-import {WhatsAppIcon} from "../ui/WhatsAppIcon";
+import {UNIT_TYPES, type QuoteFormDraft, type QuoteFormErrors} from "@/types";
+import {FIELD_ORDER, validateQuote} from "@/utils/validateQuote";
+import {buildWhatsAppUrl} from "@/utils/whatsapp";
+import {SectionTitle} from "@/components/ui/SectionTitle";
+import {WhatsAppIcon} from "@/components/ui/WhatsAppIcon";
 
 const EMPTY: QuoteFormDraft = {
     name: "",

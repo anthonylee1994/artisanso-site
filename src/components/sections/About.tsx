@@ -1,5 +1,5 @@
 import {LuBadgeDollarSign, LuHardHat, LuMapPin, LuRuler} from "react-icons/lu";
-import {SectionTitle} from "../ui/SectionTitle";
+import {SectionTitle} from "@/components/ui/SectionTitle";
 
 const SELLING_POINTS = [
     {

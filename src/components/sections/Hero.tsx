@@ -1,4 +1,4 @@
-import {PROJECTS} from "../../data/projects";
+import {PROJECTS} from "@/data/projects";
 
 export const Hero = () => {
     const bg = PROJECTS[0]?.images[0];

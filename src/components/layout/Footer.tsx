@@ -1,4 +1,4 @@
-import {COMPANY_NAME} from "../../constants/contact";
+import {COMPANY_NAME} from "@/constants/contact";
 
 export const Footer = () => {
     return (

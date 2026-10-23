@@ -1,5 +1,5 @@
 import React from "react";
-import {useActiveSection} from "../../hooks/useActiveSection";
+import {useActiveSection} from "@/hooks/useActiveSection";
 
 const NAV_ITEMS = [
     {id: "top", label: "首頁"},
