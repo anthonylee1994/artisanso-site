@@ -1,3 +1,4 @@
+import {LuArrowRight} from "react-icons/lu";
 import {PROJECTS} from "@/data/projects";
 
 export const Hero = () => {
@@ -27,9 +28,7 @@ export const Hero = () => {
                         className="group flex min-h-12 min-w-40 items-center justify-center gap-2 rounded border border-white px-6 font-semibold transition hover:bg-white hover:text-brand"
                     >
                         查看我們的作品
-                        <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">
-                            →
-                        </span>
+                        <LuArrowRight aria-hidden="true" className="transition-transform group-hover:translate-x-1" />
                     </a>
                     <a
                         href="#quote"
