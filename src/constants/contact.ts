@@ -4,3 +4,5 @@ export const WA_NUMBER = "85251717371";
 export const WA_URL = `https://wa.me/${WA_NUMBER}`;
 export const EMAIL = "info@artisanso.com";
 export const COMPANY_NAME = "匠方工程";
+export const INSTAGRAM_URL = "https://www.instagram.com/artisansohk/";
+export const INSTAGRAM_HANDLE = "@artisansohk";
