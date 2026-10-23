@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="64" height="64" viewBox="0 0 64 64">
+  <title>jiangfang-icon.svg</title>
+  <g id="Layer_1" data-name="Layer 1">
+    <path d="M0 14 C0 6.268 6.268 0 14 0 L50 0 C57.732 0 64 6.268 64 14 L64 50 C64 57.732 57.732 64 50 64 L14 64 C6.268 64 0 57.732 0 50 Z M15.25 11.5 L15.25 52.5 L48.75 52.5 L48.75 43.5 L24.25 43.5 L24.25 20.5 L48.75 20.5 L48.75 11.5 Z M32 26 L32 38 L44 38 L44 26 Z" fill="#1f2a37"/>
+  </g>
+</svg>
