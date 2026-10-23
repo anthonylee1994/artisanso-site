@@ -1,6 +1,7 @@
 import React from "react";
 import {FiChevronLeft, FiChevronRight} from "react-icons/fi";
 import {LuFlipHorizontal2, LuFlipVertical2, LuRotateCcwSquare, LuRotateCwSquare, LuZoomIn, LuZoomOut} from "react-icons/lu";
+import {LoadingProgress} from "@/components/ui/LoadingProgress";
 import type {SlideDirection} from "@/hooks/useLightbox";
 import type {Project} from "@/types";
 
@@ -23,10 +24,31 @@ type ImageView = {
     y: number;
 };
 
+type Point = {x: number; y: number};
+
+type Gesture = {
+    distance: number;
+    zoom: number;
+    anchor: Point;
+    x: number;
+    y: number;
+};
+
 const SWIPE_THRESHOLD = 50;
+const TAP_SLOP = 8;
+const DOUBLE_TAP_MS = 300;
+const DOUBLE_TAP_ZOOM = 2;
 const MIN_ZOOM = 1;
 const MAX_ZOOM = 4;
 const ZOOM_STEP = 0.5;
+
+function distance(a: Point, b: Point) {
+    return Math.hypot(a.x - b.x, a.y - b.y);
+}
+
+function midpoint(a: Point, b: Point): Point {
+    return {x: (a.x + b.x) / 2, y: (a.y + b.y) / 2};
+}
 
 function createView(src: string): ImageView {
     return {src, rotate: 0, flipX: false, flipY: false, zoom: MIN_ZOOM, x: 0, y: 0};
@@ -36,11 +58,16 @@ export const Lightbox = (props: LightboxProps) => {
     const {project, index} = props;
     const image = project.images[index];
     const dialogRef = React.useRef<HTMLDivElement>(null);
-    const touchStartX = React.useRef<number | null>(null);
-    const dragStart = React.useRef<{pointerX: number; pointerY: number; x: number; y: number} | null>(null);
+    const pointers = React.useRef(new Map<number, Point>());
+    const gesture = React.useRef<Gesture | null>(null);
+    const swipeStart = React.useRef<Point | null>(null);
+    const moved = React.useRef(false);
+    const lastTap = React.useRef(0);
     const [dragging, setDragging] = React.useState(false);
     const [storedView, setView] = React.useState(() => createView(image.src));
+    const [settledSrc, setSettledSrc] = React.useState<string | null>(null);
     const multiple = project.images.length > 1;
+    const loading = settledSrc !== image.src;
 
     // 換相就重設變換，唔使用 effect 避免閃一格舊狀態
     const view = storedView.src === image.src ? storedView : createView(image.src);
@@ -60,22 +87,81 @@ export const Lightbox = (props: LightboxProps) => {
         setView(zoom === MIN_ZOOM ? {...view, zoom, x: 0, y: 0} : {...view, zoom});
     };
 
+    const update = (patch: Partial<ImageView>) => setView(prev => ({...(prev.src === image.src ? prev : createView(image.src)), ...patch}));
+
+    // 以目前所有手指為基準，重新記低拖動 / 縮放嘅起點
+    const beginGesture = () => {
+        const [a, b] = [...pointers.current.values()];
+        if (!a) {
+            gesture.current = null;
+            return;
+        }
+        gesture.current = {distance: b ? distance(a, b) : 0, zoom: view.zoom, anchor: b ? midpoint(a, b) : a, x: view.x, y: view.y};
+    };
+
     const onPointerDown = (e: React.PointerEvent) => {
-        if (!zoomed) return;
+        if ((e.target as HTMLElement).closest("button")) return;
         e.currentTarget.setPointerCapture(e.pointerId);
-        dragStart.current = {pointerX: e.clientX, pointerY: e.clientY, x: view.x, y: view.y};
+        pointers.current.set(e.pointerId, {x: e.clientX, y: e.clientY});
+        if (pointers.current.size === 1) {
+            moved.current = false;
+            swipeStart.current = e.pointerType === "mouse" ? null : {x: e.clientX, y: e.clientY};
+        } else {
+            moved.current = true;
+            swipeStart.current = null;
+        }
+        beginGesture();
         setDragging(true);
     };
 
     const onPointerMove = (e: React.PointerEvent) => {
-        const start = dragStart.current;
-        if (!start) return;
-        setView({...view, x: start.x + e.clientX - start.pointerX, y: start.y + e.clientY - start.pointerY});
+        if (!pointers.current.has(e.pointerId)) return;
+        pointers.current.set(e.pointerId, {x: e.clientX, y: e.clientY});
+        const g = gesture.current;
+        if (!g) return;
+        const [a, b] = [...pointers.current.values()];
+        if (b) {
+            const mid = midpoint(a, b);
+            const zoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, (g.zoom * distance(a, b)) / g.distance));
+            update({zoom, x: g.x + mid.x - g.anchor.x, y: g.y + mid.y - g.anchor.y});
+        } else {
+            if (Math.hypot(a.x - g.anchor.x, a.y - g.anchor.y) > TAP_SLOP) moved.current = true;
+            if (view.zoom > MIN_ZOOM) update({x: g.x + a.x - g.anchor.x, y: g.y + a.y - g.anchor.y});
+        }
     };
 
-    const onPointerUp = () => {
-        dragStart.current = null;
+    const onPointerUp = (e: React.PointerEvent) => {
+        if (!pointers.current.delete(e.pointerId)) return;
+        if (pointers.current.size > 0) {
+            beginGesture();
+            return;
+        }
+        const start = swipeStart.current;
+        swipeStart.current = null;
+        gesture.current = null;
         setDragging(false);
+        if (view.zoom <= MIN_ZOOM && (view.x !== 0 || view.y !== 0)) update({x: 0, y: 0});
+        if (e.type !== "pointerup") return;
+
+        // 未放大時橫向掃動換相
+        if (start && view.zoom <= MIN_ZOOM) {
+            const dx = e.clientX - start.x;
+            if (Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(e.clientY - start.y)) {
+                if (dx > 0) props.onPrev();
+                else props.onNext();
+                return;
+            }
+        }
+
+        // 雙擊圖片：放大 / 還原
+        if (!moved.current && e.pointerType !== "mouse" && (e.target as HTMLElement).tagName === "IMG") {
+            if (e.timeStamp - lastTap.current < DOUBLE_TAP_MS) {
+                lastTap.current = 0;
+                update(zoomed ? {zoom: MIN_ZOOM, x: 0, y: 0} : {zoom: DOUBLE_TAP_ZOOM});
+            } else {
+                lastTap.current = e.timeStamp;
+            }
+        }
     };
 
     // 開啟時 focus 入 dialog
@@ -97,14 +183,6 @@ export const Lightbox = (props: LightboxProps) => {
             e.preventDefault();
             first.focus();
         }
-    };
-
-    const onTouchEnd = (e: React.TouchEvent) => {
-        if (touchStartX.current === null || zoomed) return;
-        const delta = e.changedTouches[0].clientX - touchStartX.current;
-        touchStartX.current = null;
-        if (delta > SWIPE_THRESHOLD) props.onPrev();
-        else if (delta < -SWIPE_THRESHOLD) props.onNext();
     };
 
     const imageAnimation = props.direction === "next" ? "animate-lightbox-slide-next" : props.direction === "prev" ? "animate-lightbox-slide-prev" : "animate-lightbox-zoom";
@@ -145,29 +223,30 @@ export const Lightbox = (props: LightboxProps) => {
             </div>
 
             <div
-                className="relative flex flex-1 items-center justify-center overflow-hidden px-2"
+                className={`relative flex flex-1 touch-none items-center justify-center overflow-hidden px-2 ${zoomed ? (dragging ? "cursor-grabbing" : "cursor-grab") : ""}`}
                 onClick={e => {
-                    if (e.target === e.currentTarget) props.onClose();
+                    if (e.target === e.currentTarget && !moved.current) props.onClose();
                 }}
-                onTouchStart={e => (touchStartX.current = e.touches[0].clientX)}
-                onTouchEnd={onTouchEnd}
+                onPointerDown={onPointerDown}
+                onPointerMove={onPointerMove}
+                onPointerUp={onPointerUp}
+                onPointerCancel={onPointerUp}
             >
                 <img
                     key={image.src}
                     src={image.src}
                     alt={image.alt}
                     draggable={false}
-                    onPointerDown={onPointerDown}
-                    onPointerMove={onPointerMove}
-                    onPointerUp={onPointerUp}
-                    onPointerCancel={onPointerUp}
+                    onLoad={() => setSettledSrc(image.src)}
+                    onError={() => setSettledSrc(image.src)}
                     style={{
                         translate: `${view.x}px ${view.y}px`,
                         rotate: `${view.rotate}deg`,
                         scale: `${(view.flipX ? -1 : 1) * view.zoom} ${(view.flipY ? -1 : 1) * view.zoom}`,
                     }}
-                    className={`max-h-full max-w-full ${imageAnimation} object-contain select-none motion-reduce:animate-none ${zoomed ? (dragging ? "cursor-grabbing touch-none" : "cursor-grab touch-none") : ""} ${dragging ? "" : "transition-[rotate,scale,translate] duration-200 motion-reduce:transition-none"}`}
+                    className={`max-h-full max-w-full ${imageAnimation} object-contain select-none motion-reduce:animate-none ${dragging ? "" : "transition-[rotate,scale,translate] duration-200 motion-reduce:transition-none"}`}
                 />
+                {loading && <LoadingProgress />}
                 {multiple && (
                     <React.Fragment>
                         <button type="button" aria-label="上一張" onClick={props.onPrev} className={`${arrowClass} left-2`}>
