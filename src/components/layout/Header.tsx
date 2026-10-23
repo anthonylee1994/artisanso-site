@@ -21,7 +21,7 @@ export const Header = () => {
                     <img src="/logo.svg" alt="" width={32} height={32} />
                     <div className="flex flex-col leading-none">
                         <span className="mt-0.5 text-lg leading-none font-bold">匠方工程</span>
-                        <span className="mt-1 text-sm leading-none text-white/50">Artisanso Engineering</span>
+                        <span className="mt-1 text-sm leading-none font-normal text-white/50">Artisanso Engineering</span>
                     </div>
                 </a>
 
