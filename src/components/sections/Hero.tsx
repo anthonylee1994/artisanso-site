@@ -1,7 +1,7 @@
 import {PROJECTS} from "@/data/projects";
 
 export const Hero = () => {
-    const bg = PROJECTS[0]?.images[0];
+    const bg = PROJECTS[1]?.images[0];
 
     return (
         <section id="top" className="relative flex min-h-[80vh] scroll-mt-16 items-center justify-center overflow-hidden text-center text-white">
