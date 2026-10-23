@@ -10,7 +10,7 @@ function imagesOf(projectId: string, name: string) {
     return Object.entries(imageModules)
         .filter(([path]) => path.includes(`/projects/${projectId}/`))
         .sort(([a], [b]) => a.localeCompare(b))
-        .map(([, src], index) => ({src, alt: `${name} 相片 ${index + 1}`}));
+        .map(([, src], index) => ({src, alt: `${name} 裝修工程相片 ${index + 1}`}));
 }
 
 export const CATEGORIES: ProjectCategory[] = [
@@ -27,12 +27,6 @@ const RAW: Omit<Project, "images">[] = [
     {id: "干德道帝豪閣", categoryId: "home", name: "干德道帝豪閣"},
     {id: "九龍灣合力工業大厦", categoryId: "office", name: "九龍灣合力工業大厦"},
     {id: "傢俬廠房", categoryId: "factory", name: "傢俬廠房"},
-    // {id: "home-reno-1", categoryId: "home", name: "大埔私樓全屋翻新"},
-    // {id: "home-reno-2", categoryId: "home", name: "荃灣居屋廚廁更新"},
-    // {id: "shop-office-1", categoryId: "office", name: "元朗寫字樓裝修"},
-    // {id: "restaurant-1", categoryId: "dining", name: "荃灣餐廳工程"},
-    // {id: "village-house-1", categoryId: "village", name: "元朗村屋翻新"},
-    // {id: "village-house-2", categoryId: "village", name: "大埔洋房內外裝修"},
 ];
 
 export const PROJECTS: Project[] = RAW.map(p => ({
