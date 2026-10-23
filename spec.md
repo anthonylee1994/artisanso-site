@@ -3,7 +3,6 @@
 ## 1. 目標
 
 為「匠方工程」整一個一頁式（Single Page）宣傳網站，核心目的：**令客人睇完作品之後，即刻 WhatsApp 嚟問價**。
-
 - 語言：繁體中文（香港），`<html lang="zh-HK">`
 - 目標用戶：大埔 / 荃灣 / 元朗一帶嘅住宅同商業單位業主
 - 主要轉換（Conversion）：WhatsApp 即時報價 → `51717371`
@@ -72,7 +71,6 @@ artisanso-site/
 | 4   | 即時報價 | `#quote`    | WhatsApp Form                        |
 | 5   | 聯絡我們 | `#contact`  | 電話、電郵                           |
 | 6   | Footer   | —           | Copyright                            |
-
 - Header 導航用 smooth scroll（`scroll-behavior: smooth` + `scroll-mt-*` 避免俾 sticky header 遮住）
 - Mobile 用 hamburger menu；Header 右邊永遠保留「即時報價」按鈕
 - 右下角浮動 WhatsApp 圓形按鈕（直接 `wa.me/85251717371`，無預填內容）
@@ -88,10 +86,7 @@ artisanso-site/
 
 - 一段簡短介紹（約 80–120 字），內容待客戶提供，暫用 placeholder
 - 賣點 Grid（icon + 標題 + 一句說明），暫定：
-    1. 免費上門度尺報價
-    2. 價錢透明，無隱藏收費
-    3. 專業師傅團隊
-    4. 服務大埔 / 荃灣 / 元朗
+  1. 免費上門度尺報價 2. 價錢透明，無隱藏收費 3. 專業師傅團隊 4. 服務大埔 / 荃灣 / 元朗
 
 ### 4.3 作品展示（Show Case Gallery）
 
@@ -120,12 +115,11 @@ export type Project = {
 **關係**：`Category 1 — N Project 1 — N Image`
 
 **UI 行為**
-
 - 頂部 Category Tabs：`全部` + 各分類；Active 狀態明顯
 - 每個 Project 一張 Card：封面 = `images[0]`，下面顯示項目名稱 + 分類 tag + 相數（例：`6 張`）
 - Card Grid：Mobile 1 欄 / Tablet 2 欄 / Desktop 3 欄
 - 點擊 Card → 開 Lightbox：
-    - 顯示該項目全部圖片
+  - 顯示該項目全部圖片
     - 左右箭嘴 + 鍵盤 `←` `→` + `Esc` 關閉
     - Mobile 支援 swipe
     - 顯示項目名稱 + `3 / 8` 頁碼
@@ -154,7 +148,6 @@ export type UnitType = (typeof UNIT_TYPES)[number];
 ```
 
 **提交流程**
-
 1. 用戶撳「WhatsApp 即時報價」
 2. Client-side 驗證；失敗就喺欄位下面顯示錯誤，focus 去第一個錯誤欄位
 3. 通過就組訊息，用 `window.open(url, '_blank', 'noopener')` 開 WhatsApp
@@ -191,7 +184,7 @@ function buildWhatsAppUrl(values: QuoteFormValues): string {
 
 - 風格：專業、穩陣、有質感（唔好太花）
 - 色板（暫定，寫入 Tailwind `@theme`）：
-    - `--color-brand`：深木色 / 炭灰（主色）
+  - `--color-brand`：深木色 / 炭灰（主色）
     - `--color-accent`：暖銅金（CTA、Active 狀態）
     - `--color-surface`：米白底
     - WhatsApp 按鈕固定用 WhatsApp 綠 `#25D366`
