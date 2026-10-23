@@ -1,5 +1,3 @@
-import React from "react";
-
 export const WhatsAppIcon = (props: {className?: string}) => {
     return (
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={props.className}>

@@ -1,4 +1,3 @@
-import React from "react";
 import {PROJECTS} from "../../data/projects";
 
 export const Hero = () => {

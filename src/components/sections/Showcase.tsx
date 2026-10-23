@@ -43,7 +43,7 @@ export const Showcase = () => {
             <div className="mx-auto max-w-6xl">
                 <SectionTitle title="作品展示" subtitle="歡迎瀏覽我們完成的項目" />
 
-                <div role="group" aria-label="作品分類" className="mb-8 flex flex-wrap justify-center gap-2">
+                <div className="mb-8 flex flex-wrap justify-center gap-2">
                     {tabs.map(tab => (
                         <button
                             key={tab.id}
