@@ -16,6 +16,7 @@ function imagesOf(projectId: string, name: string) {
 export const CATEGORIES: ProjectCategory[] = [
     {id: "home", name: "住宅裝修"},
     {id: "office", name: "商舖及辦公室"},
+    {id: "factory", name: "傢俬廠房"},
     // {id: "village", name: "村屋及洋房"},
 ];
 
@@ -25,6 +26,7 @@ const RAW: Omit<Project, "images">[] = [
     {id: "美乎曼克頓山", categoryId: "home", name: "美乎曼克頓山"},
     {id: "干德道帝豪閣", categoryId: "home", name: "干德道帝豪閣"},
     {id: "九龍灣合力工業大厦", categoryId: "office", name: "九龍灣合力工業大厦"},
+    {id: "傢俬廠房", categoryId: "factory", name: "傢俬廠房"},
     // {id: "home-reno-1", categoryId: "home", name: "大埔私樓全屋翻新"},
     // {id: "home-reno-2", categoryId: "home", name: "荃灣居屋廚廁更新"},
     // {id: "shop-office-1", categoryId: "office", name: "元朗寫字樓裝修"},
