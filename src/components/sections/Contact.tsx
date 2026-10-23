@@ -10,7 +10,7 @@ const ICON_CLASS = "flex h-14 w-14 items-center justify-center rounded-full bg-a
 
 export const Contact = () => {
     return (
-        <section id="contact" className="relative scroll-mt-16 overflow-clip bg-brand px-4 py-20 text-white">
+        <section id="contact" className="relative scroll-mt-16 overflow-clip bg-brand px-8 py-20 text-white md:px-12">
             <div aria-hidden="true" className="parallax pointer-events-none absolute -top-32 -left-32 h-96 w-96 rounded-full bg-accent/25 blur-3xl" />
             <div aria-hidden="true" className="parallax pointer-events-none absolute -right-32 -bottom-32 h-96 w-96 rounded-full bg-accent/20 blur-3xl" />
             <div aria-hidden="true" className="pointer-events-none absolute inset-4 border border-accent/20 md:inset-8">
