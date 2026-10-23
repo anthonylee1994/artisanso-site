@@ -15,7 +15,7 @@ export const Showcase = () => {
     return (
         <section id="showcase" className="scroll-mt-16 bg-white px-4 py-16">
             <div className="mx-auto max-w-6xl">
-                <SectionTitle title="作品展示" subtitle="歡迎瀏覽我們完成的項目" />
+                <SectionTitle eyebrow="Our Projects" title="作品展示" subtitle="歡迎瀏覽我們完成的項目" />
 
                 <div className="mb-8 flex flex-wrap justify-center gap-2">
                     {tabs.map(tab => (
@@ -24,7 +24,7 @@ export const Showcase = () => {
                             type="button"
                             aria-pressed={categoryId === tab.id}
                             onClick={() => setCategoryId(tab.id)}
-                            className={`min-h-11 rounded-full px-5 font-semibold transition ${categoryId === tab.id ? "bg-accent text-white" : "bg-surface text-brand hover:bg-accent/20"}`}
+                            className={`min-h-11 rounded-full px-5 font-semibold transition ${categoryId === tab.id ? "bg-accent text-white shadow-md shadow-accent/30" : "bg-surface text-brand hover:-translate-y-0.5 hover:bg-accent/20"}`}
                         >
                             {tab.name}
                         </button>

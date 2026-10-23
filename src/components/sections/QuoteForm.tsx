@@ -56,8 +56,8 @@ export const QuoteForm = () => {
     return (
         <section id="quote" className="scroll-mt-16 px-4 py-16">
             <div className="mx-auto max-w-xl">
-                <SectionTitle title="即時報價" subtitle="填妥資料，一鍵透過 WhatsApp 傳送給我們" />
-                <form ref={formRef} onSubmit={onSubmit} noValidate className="space-y-5 rounded-lg bg-white p-6 shadow-sm">
+                <SectionTitle eyebrow="Get a Quote" title="即時報價" subtitle="填妥資料，一鍵透過 WhatsApp 傳送給我們" />
+                <form ref={formRef} onSubmit={onSubmit} noValidate className="reveal space-y-5 rounded-lg border-t-4 border-accent bg-white p-6 shadow-lg md:p-8">
                     <div>
                         <label htmlFor="name" className="mb-1 block font-semibold">
                             稱呼 <span className="text-red-600">*</span>
