@@ -15,10 +15,13 @@ export const Header = () => {
 
     return (
         <header className="sticky top-0 z-30 bg-brand text-white shadow">
-            <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-                <a href="#top" className="flex min-h-11 items-center gap-2 text-lg font-bold">
+            <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:grid md:grid-cols-[1fr_auto_1fr]">
+                <a href="#top" className="flex min-h-11 items-center gap-2 text-lg font-bold md:justify-self-start">
                     <img src="/logo.svg" alt="" width={32} height={32} />
-                    匠方工程
+                    <div className="flex flex-col leading-none">
+                        <span className="mt-0.5 text-lg leading-none font-bold">匠方工程</span>
+                        <span className="mt-1 text-sm leading-none text-white/50">Artisanso Engineering</span>
+                    </div>
                 </a>
 
                 <nav aria-label="主選單" className="hidden gap-6 md:flex">
@@ -33,7 +36,7 @@ export const Header = () => {
                     ))}
                 </nav>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 md:justify-self-end">
                     <a href="#quote" className="flex min-h-11 items-center rounded bg-accent px-4 font-semibold transition hover:bg-accent-dark">
                         即時報價
                     </a>
