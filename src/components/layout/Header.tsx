@@ -15,6 +15,7 @@ export const Header = () => {
 
     return (
         <header className="sticky top-0 z-30 bg-brand text-white shadow">
+            <div aria-hidden="true" className="scroll-progress pointer-events-none absolute inset-x-0 top-0 z-10 h-0.5 origin-left bg-accent" />
             <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:grid md:grid-cols-[1fr_auto_1fr]">
                 <a href="#top" className="flex min-h-11 items-center gap-2 text-lg font-bold md:justify-self-start">
                     <img src="/logo.svg" alt="" width={32} height={32} />

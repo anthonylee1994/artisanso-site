@@ -4,7 +4,7 @@ export const Hero = () => {
     const bg = PROJECTS[1]?.images[0];
 
     return (
-        <section id="top" className="relative flex min-h-[80vh] scroll-mt-16 items-center justify-center overflow-hidden text-center text-white">
+        <section id="top" className="relative flex min-h-[80vh] scroll-mt-16 items-center justify-center overflow-clip text-center text-white">
             {bg && <img src={bg.src} alt="" width={1200} height={800} fetchPriority="high" className="absolute inset-0 h-full w-full animate-hero-drift object-cover motion-reduce:animate-none" />}
             <div className="absolute inset-0 bg-linear-to-b from-brand/85 via-brand/65 to-brand/90" />
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,var(--color-brand)_130%)]" />
@@ -16,7 +16,7 @@ export const Hero = () => {
                 <span className="absolute -right-px -bottom-px h-6 w-6 border-r-2 border-b-2 border-accent" />
             </div>
 
-            <div className="relative px-4 py-20">
+            <div className="hero-exit relative px-4 py-20">
                 <p className="animate-hero-rise text-xs tracking-[0.45em] text-accent uppercase motion-reduce:animate-none md:text-sm">Artisanso Engineering</p>
                 <h1 className="mt-4 animate-hero-rise text-4xl font-bold tracking-widest [animation-delay:150ms] motion-reduce:animate-none md:text-6xl">匠方工程</h1>
                 <div className="mx-auto mt-6 h-0.5 w-20 origin-center animate-hero-line bg-accent [animation-delay:450ms] motion-reduce:animate-none" />

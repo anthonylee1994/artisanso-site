@@ -10,9 +10,9 @@ const ICON_CLASS = "flex h-14 w-14 items-center justify-center rounded-full bg-a
 
 export const Contact = () => {
     return (
-        <section id="contact" className="relative scroll-mt-16 overflow-hidden bg-brand px-4 py-20 text-white">
-            <div aria-hidden="true" className="pointer-events-none absolute -top-32 -left-32 h-96 w-96 rounded-full bg-accent/15 blur-3xl" />
-            <div aria-hidden="true" className="pointer-events-none absolute -right-32 -bottom-32 h-96 w-96 rounded-full bg-accent/10 blur-3xl" />
+        <section id="contact" className="relative scroll-mt-16 overflow-clip bg-brand px-4 py-20 text-white">
+            <div aria-hidden="true" className="parallax pointer-events-none absolute -top-32 -left-32 h-96 w-96 rounded-full bg-accent/25 blur-3xl" />
+            <div aria-hidden="true" className="parallax pointer-events-none absolute -right-32 -bottom-32 h-96 w-96 rounded-full bg-accent/20 blur-3xl" />
             <div aria-hidden="true" className="pointer-events-none absolute inset-4 border border-accent/20 md:inset-8">
                 <span className="absolute -top-px -left-px h-6 w-6 border-t-2 border-l-2 border-accent" />
                 <span className="absolute -top-px -right-px h-6 w-6 border-t-2 border-r-2 border-accent" />
@@ -22,7 +22,7 @@ export const Contact = () => {
 
             <div className="relative mx-auto max-w-4xl text-center">
                 <SectionTitle eyebrow="Contact" title="聯絡我們" subtitle="歡迎隨時查詢，我們會盡快回覆" light />
-                <ul className="grid gap-4 text-lg sm:grid-cols-3">
+                <ul className="stagger grid gap-4 text-lg sm:grid-cols-3">
                     <li className="reveal min-w-0">
                         <a href={PHONE_HREF} className={CARD_CLASS}>
                             <span className={ICON_CLASS}>
