@@ -2,7 +2,7 @@ import React from "react";
 import {useActiveSection} from "@/hooks/useActiveSection";
 
 const NAV_ITEMS = [
-    {id: "top", label: "首頁"},
+    {id: "home", label: "首頁"},
     {id: "about", label: "關於我們"},
     {id: "showcase", label: "作品展示"},
     {id: "quote", label: "即時報價"},
@@ -17,7 +17,7 @@ export const Header = () => {
         <header className="sticky top-0 z-30 bg-brand text-white shadow">
             <div aria-hidden="true" className="scroll-progress pointer-events-none absolute inset-x-0 top-0 z-10 h-0.5 origin-left bg-accent" />
             <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:grid md:grid-cols-[1fr_auto_1fr]">
-                <a href="#top" className="flex min-h-11 items-center gap-2 text-lg font-bold md:justify-self-start">
+                <a href="#home" className="flex min-h-11 items-center gap-2 text-lg font-bold md:justify-self-start">
                     <img src="/logo.svg" alt="" width={32} height={32} />
                     <div className="flex flex-col leading-none">
                         <span className="mt-0.5 text-lg leading-none font-bold">匠方工程</span>
