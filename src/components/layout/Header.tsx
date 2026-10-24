@@ -19,7 +19,7 @@ export const Header = () => {
             <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:grid md:grid-cols-[1fr_auto_1fr]">
                 <a href="#home" className="flex min-h-11 items-center gap-2 text-lg font-bold md:justify-self-start">
                     <img src="/logo.svg" alt="" width={32} height={32} />
-                    <div className="flex flex-col leading-none">
+                    <div className="flex min-w-50 flex-col leading-none">
                         <span className="mt-0.5 text-lg leading-none font-bold">匠方工程</span>
                         <span className="mt-1 text-sm leading-none font-normal text-white/50">Artisanso Engineering</span>
                     </div>
