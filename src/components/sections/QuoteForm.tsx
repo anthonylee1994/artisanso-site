@@ -1,4 +1,5 @@
 import React from "react";
+import {FiChevronDown} from "react-icons/fi";
 import {UNIT_TYPES, type QuoteFormDraft, type QuoteFormErrors} from "@/types";
 import {FIELD_ORDER, validateQuote} from "@/utils/validateQuote";
 import {buildWhatsAppUrl} from "@/utils/whatsapp";
@@ -80,14 +81,24 @@ export const QuoteForm = () => {
                         <label htmlFor="unitType" className="mb-1 block font-semibold">
                             單位類型 <span className="text-red-600">*</span>
                         </label>
-                        <select id="unitType" name="unitType" value={draft.unitType} onChange={e => update("unitType", e.target.value)} className={FIELD_CLASS} {...ariaFor("unitType")}>
-                            <option value="">請選擇</option>
-                            {UNIT_TYPES.map(t => (
-                                <option key={t} value={t}>
-                                    {t}
-                                </option>
-                            ))}
-                        </select>
+                        <div className="relative">
+                            <select
+                                id="unitType"
+                                name="unitType"
+                                value={draft.unitType}
+                                onChange={e => update("unitType", e.target.value)}
+                                className={`${FIELD_CLASS} appearance-none pr-10`}
+                                {...ariaFor("unitType")}
+                            >
+                                <option value="">請選擇</option>
+                                {UNIT_TYPES.map(t => (
+                                    <option key={t} value={t}>
+                                        {t}
+                                    </option>
+                                ))}
+                            </select>
+                            <FiChevronDown aria-hidden className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-brand" size={20} />
+                        </div>
                         {errorText("unitType")}
                     </div>
 

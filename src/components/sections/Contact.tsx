@@ -5,7 +5,7 @@ import {SectionTitle} from "@/components/ui/SectionTitle";
 import {WhatsAppIcon} from "@/components/ui/WhatsAppIcon";
 
 const CARD_CLASS =
-    "group flex min-w-0 flex-col items-center gap-3 rounded-lg border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition duration-300 hover:-translate-y-1.5 hover:border-accent/60 hover:bg-white/10";
+    "group flex h-full min-w-0 flex-col items-center gap-3 rounded-lg border border-white/10 bg-white/5 px-4 py-6 backdrop-blur-sm transition duration-300 hover:-translate-y-1.5 hover:border-accent/60 hover:bg-white/10";
 const ICON_CLASS = "flex h-14 w-14 items-center justify-center rounded-full bg-accent/15 text-accent transition duration-300 group-hover:scale-110 group-hover:bg-accent group-hover:text-white";
 
 export const Contact = () => {
@@ -29,7 +29,7 @@ export const Contact = () => {
                                 <LuPhone className="h-6 w-6" aria-hidden="true" />
                             </span>
                             <span className="text-sm text-white/60">電話</span>
-                            <span className="max-w-full wrap-break-word text-accent">{PHONE}</span>
+                            <span className="max-w-full text-base break-words text-accent">{PHONE}</span>
                         </a>
                     </li>
                     <li className="reveal min-w-0">
@@ -38,7 +38,7 @@ export const Contact = () => {
                                 <LuMail className="h-6 w-6" aria-hidden="true" />
                             </span>
                             <span className="text-sm text-white/60">電郵</span>
-                            <span className="max-w-full break-all text-accent">{EMAIL}</span>
+                            <span className="max-w-full text-base break-words text-accent">{EMAIL.replace("@", "\u200b@")}</span>
                         </a>
                     </li>
                     <li className="reveal min-w-0">
@@ -47,7 +47,7 @@ export const Contact = () => {
                                 <FiInstagram className="h-6 w-6" aria-hidden="true" />
                             </span>
                             <span className="text-sm text-white/60">Instagram</span>
-                            <span className="max-w-full break-all text-accent">{INSTAGRAM_HANDLE}</span>
+                            <span className="max-w-full text-base break-words text-accent">{INSTAGRAM_HANDLE}</span>
                         </a>
                     </li>
                 </ul>
