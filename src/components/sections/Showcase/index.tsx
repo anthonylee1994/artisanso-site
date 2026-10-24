@@ -7,6 +7,7 @@ import {ProjectCard} from "./ProjectCard";
 
 export const Showcase = () => {
     const [categoryId, setCategoryId] = React.useState("all");
+    const [switched, setSwitched] = React.useState(false);
     const lightbox = useLightbox();
 
     const tabs = [{id: "all", name: "全部"}, ...CATEGORIES];
@@ -23,7 +24,10 @@ export const Showcase = () => {
                             key={tab.id}
                             type="button"
                             aria-pressed={categoryId === tab.id}
-                            onClick={() => setCategoryId(tab.id)}
+                            onClick={() => {
+                                setCategoryId(tab.id);
+                                setSwitched(true);
+                            }}
                             className={`min-h-11 rounded-full px-5 font-semibold transition ${categoryId === tab.id ? "bg-accent text-white shadow-md shadow-accent/30" : "bg-surface text-brand hover:-translate-y-0.5 hover:bg-accent/20"}`}
                         >
                             {tab.name}
@@ -31,7 +35,7 @@ export const Showcase = () => {
                     ))}
                 </div>
 
-                <div className="stagger grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <div key={categoryId} className={`stagger grid gap-6 md:grid-cols-2 lg:grid-cols-3 ${switched ? "tab-swap" : ""}`}>
                     {visible.map(project => (
                         <ProjectCard key={project.id} project={project} categoryName={CATEGORIES.find(c => c.id === project.categoryId)?.name ?? ""} onOpen={lightbox.open} />
                     ))}
