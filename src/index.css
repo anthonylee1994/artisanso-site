@@ -6,7 +6,7 @@
     --color-accent: #b8864b;
     --color-accent-dark: #96693a;
     --color-surface: #f7f2ea;
-    --color-whatsapp: #25d366;
+    --fab-clearance: 5.5rem;
     --font-sans: "PingFang HK", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
 
     --animate-lightbox-fade: lightbox-fade 200ms ease-out;
@@ -124,6 +124,15 @@ html {
 
 body {
     @apply bg-surface font-sans text-brand antialiased;
+}
+
+html[data-lightbox-open] header,
+html[data-lightbox-open] .whatsapp-fab {
+    visibility: hidden;
+}
+
+.lightbox-root {
+    z-index: 200;
 }
 
 @media (prefers-reduced-motion: reduce) {

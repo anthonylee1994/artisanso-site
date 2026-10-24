@@ -13,8 +13,8 @@ export const Showcase = () => {
     const visible = categoryId === "all" ? PROJECTS : PROJECTS.filter(p => p.categoryId === categoryId);
 
     return (
-        <section id="showcase" className="scroll-mt-16 bg-white px-4 py-16">
-            <div className="mx-auto max-w-6xl">
+        <section id="showcase" className="scroll-mt-16 bg-white px-4 pt-16 pb-[calc(4rem+var(--fab-clearance))]">
+            <div className="mx-auto max-w-6xl pr-[var(--fab-clearance)]">
                 <SectionTitle eyebrow="Our Projects" title="作品展示" subtitle="歡迎瀏覽我們完成的項目" />
 
                 <div className="mb-8 flex flex-wrap justify-center gap-2">
@@ -31,7 +31,7 @@ export const Showcase = () => {
                     ))}
                 </div>
 
-                <div className="stagger grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <div className={`stagger grid gap-6 ${visible.length === 1 ? "mx-auto max-w-3xl" : visible.length === 2 ? "md:grid-cols-2" : "md:grid-cols-2 lg:grid-cols-3"}`}>
                     {visible.map(project => (
                         <ProjectCard key={project.id} project={project} categoryName={CATEGORIES.find(c => c.id === project.categoryId)?.name ?? ""} onOpen={lightbox.open} />
                     ))}

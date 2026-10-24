@@ -10,7 +10,7 @@ const ICON_CLASS = "flex h-14 w-14 items-center justify-center rounded-full bg-a
 
 export const Contact = () => {
     return (
-        <section id="contact" className="relative scroll-mt-16 overflow-clip bg-brand px-8 py-20 text-white md:px-12">
+        <section id="contact" className="relative scroll-mt-16 overflow-clip bg-brand px-8 pt-20 pb-[calc(5rem+var(--fab-clearance))] text-white md:px-12">
             <div aria-hidden="true" className="parallax pointer-events-none absolute -top-32 -left-32 h-96 w-96 rounded-full bg-accent/25 blur-3xl" />
             <div aria-hidden="true" className="parallax pointer-events-none absolute -right-32 -bottom-32 h-96 w-96 rounded-full bg-accent/20 blur-3xl" />
             <div aria-hidden="true" className="pointer-events-none absolute inset-4 border border-accent/20 md:inset-8">
@@ -56,7 +56,7 @@ export const Contact = () => {
                         href={WA_URL}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex min-h-12 items-center justify-center gap-2 rounded bg-white/10 px-6 font-bold text-white shadow-whatsapp/30 transition hover:-translate-y-0.5 hover:brightness-95"
+                        className="inline-flex min-h-12 items-center justify-center gap-2 rounded bg-accent px-6 font-bold text-white shadow-md shadow-accent/30 transition hover:-translate-y-0.5 hover:bg-accent-dark"
                     >
                         <WhatsAppIcon className="h-6 w-6" />
                         WhatsApp 查詢

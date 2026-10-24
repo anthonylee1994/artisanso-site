@@ -54,7 +54,7 @@ export const QuoteForm = () => {
     });
 
     return (
-        <section id="quote" className="scroll-mt-16 px-4 py-16">
+        <section id="quote" className="scroll-mt-16 px-4 pt-16 pb-[calc(4rem+var(--fab-clearance))]">
             <div className="mx-auto max-w-xl">
                 <SectionTitle eyebrow="Get a Quote" title="即時報價" subtitle="填妥資料，一鍵透過 WhatsApp 傳送給我們" />
                 <form ref={formRef} onSubmit={onSubmit} noValidate className="reveal space-y-5 rounded-lg border-t-4 border-accent bg-white p-6 shadow-lg md:p-8">
@@ -147,7 +147,10 @@ export const QuoteForm = () => {
                         {errorText("requirement")}
                     </div>
 
-                    <button type="submit" className="flex min-h-12 w-full items-center justify-center gap-2 rounded bg-whatsapp font-bold text-white transition hover:brightness-95">
+                    <button
+                        type="submit"
+                        className="flex min-h-12 w-full items-center justify-center gap-2 rounded bg-accent font-bold text-white shadow-md shadow-accent/30 transition hover:bg-accent-dark"
+                    >
                         <WhatsAppIcon className="h-6 w-6" />
                         WhatsApp 即時報價
                     </button>
