@@ -21,10 +21,10 @@ export const CATEGORIES: ProjectCategory[] = [
 ];
 
 const RAW: Omit<Project, "images">[] = [
-    {id: "元朗朗桃閣", categoryId: "home", name: "元朗朗桃閣"},
     {id: "堅尼地城加多近山", categoryId: "home", name: "堅尼地城加多近山"},
     {id: "美乎曼克頓山", categoryId: "home", name: "美乎曼克頓山"},
     {id: "干德道帝豪閣", categoryId: "home", name: "干德道帝豪閣"},
+    {id: "元朗朗桃閣", categoryId: "home", name: "元朗朗桃閣"},
     {id: "九龍灣合力工業大厦", categoryId: "office", name: "九龍灣合力工業大厦"},
     {id: "傢俬廠房", categoryId: "factory", name: "傢俬廠房"},
 ];
