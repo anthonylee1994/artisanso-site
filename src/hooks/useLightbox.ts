@@ -37,9 +37,11 @@ export function useLightbox() {
         if (!isOpen) return;
         const original = document.body.style.overflow;
         document.body.style.overflow = "hidden";
+        document.documentElement.setAttribute("data-lightbox-open", "");
         const trigger = triggerRef.current;
         return () => {
             document.body.style.overflow = original;
+            document.documentElement.removeAttribute("data-lightbox-open");
             trigger?.focus();
         };
     }, [isOpen]);

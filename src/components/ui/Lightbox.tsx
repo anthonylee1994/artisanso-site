@@ -1,4 +1,5 @@
 import React from "react";
+import {createPortal} from "react-dom";
 import {FiChevronLeft, FiChevronRight} from "react-icons/fi";
 import {LuFlipHorizontal2, LuFlipVertical2, LuRotateCcwSquare, LuRotateCwSquare, LuZoomIn, LuZoomOut} from "react-icons/lu";
 import {LoadingProgress} from "@/components/ui/LoadingProgress";
@@ -201,23 +202,23 @@ export const Lightbox = (props: LightboxProps) => {
         {label: "放大", icon: LuZoomIn, onClick: () => zoomBy(ZOOM_STEP), disabled: view.zoom >= MAX_ZOOM},
     ];
 
-    return (
+    const dialog = (
         <div
             ref={dialogRef}
             role="dialog"
             aria-modal="true"
             aria-label={project.name}
             onKeyDown={onKeyDown}
-            className="fixed inset-0 z-50 flex animate-lightbox-fade flex-col bg-black/90 motion-reduce:animate-none"
+            className="lightbox-root fixed inset-0 flex animate-lightbox-fade flex-col bg-black motion-reduce:animate-none"
         >
-            <div className="flex items-center justify-between px-4 py-3 text-white">
-                <div>
-                    <div className="font-bold">{project.name}</div>
+            <div className="flex items-center justify-between gap-4 px-4 py-4 text-white">
+                <div className="min-w-0">
+                    <div className="truncate font-bold">{project.name}</div>
                     <div className="text-sm text-white/70">
                         {index + 1} / {project.images.length}
                     </div>
                 </div>
-                <button type="button" aria-label="關閉" onClick={props.onClose} className="flex h-11 w-11 items-center justify-center text-3xl">
+                <button type="button" aria-label="關閉" onClick={props.onClose} className="flex h-11 w-11 shrink-0 items-center justify-center text-3xl">
                     ×
                 </button>
             </div>
@@ -267,4 +268,6 @@ export const Lightbox = (props: LightboxProps) => {
             </div>
         </div>
     );
+
+    return createPortal(dialog, document.body);
 };

@@ -38,7 +38,7 @@ export const Header = () => {
                 </nav>
 
                 <div className="flex items-center gap-2 md:justify-self-end">
-                    <a href="#quote" className="flex min-h-11 items-center rounded bg-accent px-4 font-semibold transition hover:bg-accent-dark">
+                    <a href="#quote" className="hidden min-h-11 items-center rounded bg-accent px-4 font-semibold transition hover:bg-accent-dark md:flex">
                         即時報價
                     </a>
                     <button

@@ -32,21 +32,18 @@ export const About = () => {
                 <p className="reveal mx-auto max-w-2xl text-center leading-8">
                     匠方工程專注住宅及商業單位裝修工程，由設計商討、施工到驗收，全程由同一班師傅跟進。我們相信好的裝修就在細節，每個項目都按客戶預算和需要度身安排，準時交樓、價錢清楚。
                 </p>
-                <ul className="stagger mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                <ul className="stagger mt-14 grid gap-6 sm:grid-cols-2">
                     {SELLING_POINTS.map((p, i) => (
-                        <li
-                            key={p.title}
-                            className="reveal group relative overflow-hidden rounded-lg bg-white p-6 text-center shadow-sm transition duration-300 hover:-translate-y-1.5 hover:shadow-xl"
-                        >
+                        <li key={p.title} className="reveal group relative overflow-hidden rounded-lg bg-white p-6 text-left shadow-sm transition duration-300 hover:-translate-y-1.5 hover:shadow-xl">
                             <span aria-hidden="true" className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-accent transition-transform duration-500 group-hover:scale-x-100" />
-                            <span aria-hidden="true" className="absolute top-2 right-4 text-5xl font-bold text-accent/10 transition-colors duration-300 group-hover:text-accent/20">
+                            <span aria-hidden="true" className="absolute top-3 right-4 text-5xl font-bold text-accent/25 transition-colors duration-300 group-hover:text-accent/40">
                                 {String(i + 1).padStart(2, "0")}
                             </span>
-                            <div className="relative mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-accent/10 text-accent transition duration-300 group-hover:scale-110 group-hover:bg-accent group-hover:text-white">
-                                <p.icon className="h-8 w-8" aria-hidden="true" />
+                            <div className="relative flex h-14 w-14 items-center justify-center rounded-full bg-accent/10 text-accent transition duration-300 group-hover:scale-110 group-hover:bg-accent group-hover:text-white">
+                                <p.icon className="h-7 w-7" aria-hidden="true" />
                             </div>
-                            <h3 className="relative mt-4 font-bold">{p.title}</h3>
-                            <p className="relative mt-2 text-sm text-brand-light">{p.text}</p>
+                            <h3 className="relative mt-4 pr-14 font-bold">{p.title}</h3>
+                            <p className="relative mt-2 text-sm leading-7 text-brand-light">{p.text}</p>
                         </li>
                     ))}
                 </ul>
