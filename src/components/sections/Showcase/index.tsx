@@ -31,7 +31,7 @@ export const Showcase = () => {
                     ))}
                 </div>
 
-                <div className={`stagger grid gap-6 ${visible.length === 1 ? "mx-auto max-w-3xl" : visible.length === 2 ? "md:grid-cols-2" : "md:grid-cols-2 lg:grid-cols-3"}`}>
+                <div className="stagger grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                     {visible.map(project => (
                         <ProjectCard key={project.id} project={project} categoryName={CATEGORIES.find(c => c.id === project.categoryId)?.name ?? ""} onOpen={lightbox.open} />
                     ))}
