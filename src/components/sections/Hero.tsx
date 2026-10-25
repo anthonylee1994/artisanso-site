@@ -1,8 +1,9 @@
 import {LuArrowRight} from "react-icons/lu";
-import {PROJECTS} from "@/data/projects";
+import {useProjects} from "@/hooks/useProjects";
 
 export const Hero = () => {
-    const bg = PROJECTS[0]?.images[0];
+    const {projects} = useProjects();
+    const bg = projects[0]?.images[0];
 
     return (
         <section id="home" className="relative flex min-h-[80vh] scroll-mt-16 items-center justify-center overflow-clip text-center text-white">

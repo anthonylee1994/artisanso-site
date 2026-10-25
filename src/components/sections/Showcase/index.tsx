@@ -1,5 +1,6 @@
 import React from "react";
-import {CATEGORIES, PROJECTS} from "@/data/projects";
+import {CATEGORIES} from "@/data/projects";
+import {useProjects} from "@/hooks/useProjects";
 import {useLightbox} from "@/hooks/useLightbox";
 import {Lightbox} from "@/components/ui/Lightbox";
 import {SectionTitle} from "@/components/ui/SectionTitle";
@@ -9,9 +10,10 @@ export const Showcase = () => {
     const [categoryId, setCategoryId] = React.useState("all");
     const [switched, setSwitched] = React.useState(false);
     const lightbox = useLightbox();
+    const {projects, status} = useProjects();
 
     const tabs = [{id: "all", name: "全部"}, ...CATEGORIES];
-    const visible = categoryId === "all" ? PROJECTS : PROJECTS.filter(p => p.categoryId === categoryId);
+    const visible = categoryId === "all" ? projects : projects.filter(p => p.categoryId === categoryId);
 
     return (
         <section id="showcase" className="scroll-mt-16 bg-white px-4 pt-16 pb-[calc(4rem+var(--fab-clearance))]">
@@ -34,6 +36,9 @@ export const Showcase = () => {
                         </button>
                     ))}
                 </div>
+
+                {status === "loading" && <p className="py-16 text-center text-brand-light">載入中…</p>}
+                {status === "error" && <p className="py-16 text-center text-brand-light">暫時未能載入作品，請稍後再試。</p>}
 
                 <div key={categoryId} className={`stagger grid gap-6 md:grid-cols-2 lg:grid-cols-3 ${switched ? "tab-swap" : ""}`}>
                     {visible.map(project => (
