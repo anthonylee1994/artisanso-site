@@ -1,4 +1,5 @@
 import React from "react";
+import {Navigate} from "react-router-dom";
 import {ViteReactSSG} from "vite-react-ssg";
 import {App} from "./app";
 import {ProgressPage} from "./pages/ProgressPage/index";
@@ -21,6 +22,10 @@ export const createRoot = ViteReactSSG({
                     <ProgressPage />
                 </React.StrictMode>
             ),
+        },
+        {
+            path: "*",
+            element: <Navigate to="/" replace />,
         },
     ],
 });
