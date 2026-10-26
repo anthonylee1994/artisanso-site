@@ -1,5 +1,5 @@
 import type {ClientMilestone} from "@/types/progress";
-import {MilestoneItem} from "./MilestoneItem";
+import {MilestoneItem} from "./MilestoneItem/index";
 
 export const MilestoneTimeline = (props: {milestones: ClientMilestone[]}) => {
     return (

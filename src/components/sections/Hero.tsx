@@ -1,13 +1,10 @@
 import {LuArrowRight} from "react-icons/lu";
-import {useProjects} from "@/hooks/useProjects";
+import HeroImage from "@/assets/hero.jpg";
 
 export const Hero = () => {
-    const {projects} = useProjects();
-    const bg = projects[0]?.cover || projects[0]?.images[0];
-
     return (
         <section id="home" className="relative flex min-h-[80vh] scroll-mt-16 items-center justify-center overflow-clip text-center text-white">
-            {bg && <img src={bg.src} alt="" width={1200} height={800} fetchPriority="high" className="absolute inset-0 h-full w-full animate-hero-drift object-cover motion-reduce:animate-none" />}
+            <img src={HeroImage} alt="" width={1200} height={800} fetchPriority="high" className="absolute inset-0 h-full w-full animate-hero-drift object-cover motion-reduce:animate-none" />
             <div className="absolute inset-0 bg-linear-to-b from-brand/85 via-brand/65 to-brand/90" />
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,var(--color-brand)_130%)]" />
 
