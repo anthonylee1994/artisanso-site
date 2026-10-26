@@ -1,4 +1,3 @@
-import React from "react";
 import {Lightbox} from "@/components/ui/Lightbox";
 import {useLightbox} from "@/hooks/useLightbox";
 import type {Project} from "@/types";
@@ -26,7 +25,12 @@ export const ProgressPhotos = (props: {project: ClientProject}) => {
             <ul className="grid grid-cols-2 gap-2 md:grid-cols-3">
                 {photos.map((photo, i) => (
                     <li key={photo.id}>
-                        <button type="button" aria-label={`放大工程相片 ${i + 1}`} onClick={e => lightbox.open(lightboxProject, e.currentTarget, i)} className="block w-full overflow-hidden rounded">
+                        <button
+                            type="button"
+                            aria-label={`放大工程相片 ${i + 1}`}
+                            onClick={e => lightbox.open(lightboxProject, e.currentTarget, i)}
+                            className="block w-full cursor-pointer overflow-hidden rounded"
+                        >
                             <img src={photo.url} alt={`${title} 工程相片 ${i + 1}`} loading="lazy" width={400} height={300} className="aspect-4/3 w-full object-cover" />
                         </button>
                     </li>
