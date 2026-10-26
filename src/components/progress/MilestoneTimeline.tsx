@@ -1,4 +1,3 @@
-import React from "react";
 import type {ClientMilestone} from "@/types/progress";
 import {MilestoneItem} from "./MilestoneItem";
 

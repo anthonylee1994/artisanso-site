@@ -1,4 +1,3 @@
-import React from "react";
 import {FiCheck} from "react-icons/fi";
 import type {ClientMilestone, ClientMilestoneStatus} from "@/types/progress";
 import {formatDateOnly} from "@/utils/dates";
@@ -34,12 +33,12 @@ export const MilestoneItem = (props: {milestone: ClientMilestone; last: boolean}
                 <Marker status={milestone.status} />
             </div>
             <div className={`min-w-0 flex-1 rounded-lg px-3 py-1 ${milestone.status === "in_progress" ? "bg-accent/10" : ""}`}>
-                <h3 className="font-bold break-words">{milestone.title}</h3>
+                <h3 className="font-bold wrap-break-word">{milestone.title}</h3>
                 <p className="text-sm text-brand-light">
                     {STATUS_LABEL[milestone.status]}
                     {date && ` · ${date}`}
                 </p>
-                {milestone.client_summary && <p className="mt-2 text-sm break-words whitespace-pre-line">{milestone.client_summary}</p>}
+                {milestone.client_summary && <p className="mt-2 text-sm wrap-break-word whitespace-pre-line">{milestone.client_summary}</p>}
             </div>
         </li>
     );
