@@ -3,6 +3,7 @@ import {CATEGORIES} from "@/data/projects";
 import {useProjects} from "@/hooks/useProjects";
 import {useLightbox} from "@/hooks/useLightbox";
 import {Lightbox} from "@/components/ui/Lightbox";
+import {CircularProgress} from "@/components/ui/CircularProgress";
 import {SectionTitle} from "@/components/ui/SectionTitle";
 import {ProjectCard} from "./ProjectCard";
 
@@ -37,7 +38,7 @@ export const Showcase = () => {
                     ))}
                 </div>
 
-                {status === "loading" && <p className="py-16 text-center text-brand-light">載入中…</p>}
+                {status === "loading" && <CircularProgress />}
                 {status === "error" && <p className="py-16 text-center text-brand-light">暫時未能載入作品，請稍後再試。</p>}
 
                 <div key={categoryId} className={`stagger grid gap-6 md:grid-cols-2 lg:grid-cols-3 ${switched ? "tab-swap" : ""}`}>
