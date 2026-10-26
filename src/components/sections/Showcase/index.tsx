@@ -13,7 +13,7 @@ export const Showcase = () => {
     const lightbox = useLightbox();
     const {projects, status} = useProjects();
 
-    const tabs = [{id: "all", name: "全部"}, ...CATEGORIES];
+    const tabs = [{id: "all", name: "全部"}, ...CATEGORIES.filter(c => projects.some(p => p.categoryId === c.id))];
     const visible = categoryId === "all" ? projects : projects.filter(p => p.categoryId === categoryId);
 
     return (
