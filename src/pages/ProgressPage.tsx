@@ -17,7 +17,6 @@ const Skeleton = () => {
             <div className="mb-3 h-8 w-2/3 rounded bg-brand/10" />
             <div className="mb-8 h-4 w-1/3 rounded bg-brand/10" />
             <div className="h-32 rounded bg-brand/10" />
-            <p className="mt-4 text-center text-sm text-brand-light">載入中</p>
         </div>
     );
 };

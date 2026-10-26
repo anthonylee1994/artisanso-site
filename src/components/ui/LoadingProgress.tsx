@@ -1,5 +1,3 @@
-import React from "react";
-
 export const LoadingProgress = () => {
     return (
         <div role="status" aria-label="載入中" className="pointer-events-none absolute inset-0 flex items-center justify-center">
