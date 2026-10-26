@@ -1,6 +1,6 @@
-import {FiCheck} from "react-icons/fi";
 import type {ClientMilestone, ClientMilestoneStatus} from "@/types/progress";
 import {formatDateOnly} from "@/utils/dates";
+import {Marker} from "./Marker";
 
 const STATUS_LABEL: Record<ClientMilestoneStatus, string> = {pending: "待開始", in_progress: "進行中", done: "已完成"};
 
@@ -9,18 +9,6 @@ function describeDate(milestone: ClientMilestone) {
     if (milestone.due_on) return `預計 ${formatDateOnly(milestone.due_on)}`;
     return null;
 }
-
-const Marker = (props: {status: ClientMilestoneStatus}) => {
-    if (props.status === "done") {
-        return (
-            <span aria-hidden="true" className="flex h-6 w-6 items-center justify-center rounded-full bg-green-600 text-white">
-                <FiCheck />
-            </span>
-        );
-    }
-    if (props.status === "in_progress") return <span aria-hidden="true" className="block h-6 w-6 rounded-full border-4 border-accent/30 bg-accent" />;
-    return <span aria-hidden="true" className="block h-6 w-6 rounded-full border-2 border-brand/30 bg-white" />;
-};
 
 export const MilestoneItem = (props: {milestone: ClientMilestone; last: boolean}) => {
     const {milestone} = props;
