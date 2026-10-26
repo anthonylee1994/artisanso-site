@@ -10,7 +10,7 @@ type ProjectCardProps = {
 
 export const ProjectCard = React.memo((props: ProjectCardProps) => {
     const {project} = props;
-    const cover = project.images[0];
+    const cover = project.cover || project.images[0];
 
     return (
         <button

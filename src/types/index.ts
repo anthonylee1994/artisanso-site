@@ -13,6 +13,7 @@ export type Project = {
     categoryId: string;
     name: string;
     images: ProjectImage[];
+    cover: ProjectImage | null;
 };
 
 export const UNIT_TYPES = ["私樓", "居屋", "公屋", "村屋", "洋房", "辦公室 / 寫字樓", "零售店舖", "餐飲 / 商業單位", "其他"] as const;

@@ -3,7 +3,7 @@ import {useProjects} from "@/hooks/useProjects";
 
 export const Hero = () => {
     const {projects} = useProjects();
-    const bg = projects[0]?.images[0];
+    const bg = projects[0]?.cover || projects[0]?.images[0];
 
     return (
         <section id="home" className="relative flex min-h-[80vh] scroll-mt-16 items-center justify-center overflow-clip text-center text-white">
