@@ -16,7 +16,7 @@ export const ProgressLayout = (props: ProgressLayoutProps) => {
                 <meta name="referrer" content="no-referrer" />
             </Head>
             <header className="sticky top-0 z-30 bg-brand text-white shadow">
-                <div className="mx-auto flex h-16 max-w-3xl items-center justify-between px-4">
+                <div className="mx-auto flex h-16 max-w-3xl items-center justify-between px-4 lg:px-0">
                     <div className="flex min-h-11 items-center gap-2">
                         <img src="/logo.svg" alt="" width={32} height={32} />
                         <span className="text-lg font-bold">{COMPANY_NAME}</span>
