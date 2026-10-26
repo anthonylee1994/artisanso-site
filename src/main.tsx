@@ -1,6 +1,7 @@
 import React from "react";
 import {ViteReactSSG} from "vite-react-ssg";
 import {App} from "./app";
+import {ProgressPage} from "./pages/ProgressPage";
 import "./index.css";
 
 export const createRoot = ViteReactSSG({
@@ -10,6 +11,14 @@ export const createRoot = ViteReactSSG({
             element: (
                 <React.StrictMode>
                     <App />
+                </React.StrictMode>
+            ),
+        },
+        {
+            path: "/progress",
+            element: (
+                <React.StrictMode>
+                    <ProgressPage />
                 </React.StrictMode>
             ),
         },

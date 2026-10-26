@@ -9,10 +9,10 @@ export function useLightbox() {
     const [direction, setDirection] = React.useState<SlideDirection | null>(null);
     const triggerRef = React.useRef<HTMLElement | null>(null);
 
-    const open = (target: Project, trigger: HTMLElement | null) => {
+    const open = (target: Project, trigger: HTMLElement | null, startIndex = 0) => {
         triggerRef.current = trigger;
         setProject(target);
-        setIndex(0);
+        setIndex(startIndex);
         setDirection(null);
     };
 

@@ -1,7 +1,8 @@
 import React from "react";
+import {API_ORIGIN} from "@/constants/api";
 import type {Project} from "@/types";
 
-const API_URL = `${import.meta.env.VITE_API_BASE_URL}/api/v1/projects`;
+const API_URL = `${API_ORIGIN}/api/v1/projects`;
 
 type ApiPhoto = {id: string; url: string; position: number};
 
