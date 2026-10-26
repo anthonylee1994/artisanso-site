@@ -2,11 +2,6 @@ import React from "react";
 import {clientGet, toApiError} from "@/api/clientApi";
 import type {ApiError, ClientProject} from "@/types/progress";
 
-type Handlers = {
-    onVerified: (code: string) => void;
-    onUnauthorized: () => void;
-};
-
 function normalize(project: ClientProject): ClientProject {
     return {
         ...project,
@@ -15,7 +10,7 @@ function normalize(project: ClientProject): ClientProject {
     };
 }
 
-export function useClientProject(code: string | null, handlers: Handlers) {
+export function useClientProject(code: string | null, onUnauthorized: () => void) {
     const [project, setProject] = React.useState<ClientProject | null>(null);
     const [error, setError] = React.useState<ApiError | null>(null);
     const [nonce, setNonce] = React.useState(0);
@@ -31,7 +26,6 @@ export function useClientProject(code: string | null, handlers: Handlers) {
             .then(res => {
                 setProject(normalize(res.data));
                 setError(null);
-                handlers.onVerified(code);
             })
             .catch(e => {
                 if (controller.signal.aborted) return;
@@ -39,7 +33,7 @@ export function useClientProject(code: string | null, handlers: Handlers) {
                 if (apiError.status === 401) {
                     setProject(null);
                     setError(null);
-                    handlers.onUnauthorized();
+                    onUnauthorized();
                 } else {
                     setError(apiError);
                 }

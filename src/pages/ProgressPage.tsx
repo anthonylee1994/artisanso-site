@@ -26,7 +26,7 @@ export const ProgressPage = () => {
     const [draft, setDraft] = React.useState("");
     const [scrollSignal, setScrollSignal] = React.useState(0);
 
-    const project = useClientProject(access.code, {onVerified: access.confirm, onUnauthorized: access.reject});
+    const project = useClientProject(access.code, access.reject);
     const comments = useClientComments(project.project ? access.code : null, access.reject);
 
     const refreshAll = () => {
@@ -62,7 +62,6 @@ export const ProgressPage = () => {
         if (project.project) {
             return (
                 <React.Fragment>
-                    {access.persistFailed && <p className="mb-4 rounded bg-white px-3 py-2 text-sm text-brand-light">未能儲存存取碼，下次需重新使用連結。</p>}
                     <ProjectSummary project={project.project} />
                     <MilestoneTimeline milestones={project.project.milestones} />
                     <ProgressPhotos project={project.project} />
@@ -96,5 +95,5 @@ export const ProgressPage = () => {
         return <Skeleton />;
     };
 
-    return <ProgressLayout onLogout={access.phase === "needs_code" ? undefined : access.logout}>{renderBody()}</ProgressLayout>;
+    return <ProgressLayout>{renderBody()}</ProgressLayout>;
 };

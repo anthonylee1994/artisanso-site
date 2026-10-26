@@ -4,7 +4,6 @@ import {COMPANY_NAME} from "@/constants/contact";
 
 type ProgressLayoutProps = {
     children: React.ReactNode;
-    onLogout?: () => void;
 };
 
 export const ProgressLayout = (props: ProgressLayoutProps) => {
