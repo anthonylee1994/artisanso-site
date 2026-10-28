@@ -1,12 +1,101 @@
-import {LuArrowRight} from "react-icons/lu";
+import React from "react";
+import {LuChevronLeft, LuChevronRight, LuMapPin} from "react-icons/lu";
 import HeroImage from "@/assets/hero.jpg";
+import {useProjects} from "@/hooks/useProjects";
+import {detectImageTone, type ImageTone} from "@/utils/imageTone";
+
+const AUTOPLAY_MS = 5000;
+
+type Slide = {
+    id: string;
+    src: string;
+    alt: string;
+    title: string;
+    district: string | null;
+};
+
+const FALLBACK_SLIDE: Slide = {id: "fallback", src: HeroImage, alt: "", title: "用心施工，每個細節皆見匠心", district: null};
 
 export const Hero = () => {
+    const {projects} = useProjects();
+    const [index, setIndex] = React.useState(0);
+    const [paused, setPaused] = React.useState(false);
+    const [tones, setTones] = React.useState<Record<string, ImageTone>>({});
+
+    const slides: Slide[] = projects.flatMap(project => {
+        const cover = project.cover || project.images[0];
+        return cover ? [{id: project.id, src: cover.src, alt: cover.alt, title: project.name, district: project.district}] : [];
+    });
+    const list = slides.length > 0 ? slides : [FALLBACK_SLIDE];
+    const count = list.length;
+    const current = index % count;
+
+    const light = tones[list[current].id] === "light";
+
+    const goTo = (target: number) => setIndex((target + count) % count);
+
+    // 預先偵測所有 slide 嘅色調，避免切換到未載入嘅 slide 時先白字後突然變色
+    const signature = list.map(slide => slide.id).join(",");
+    React.useEffect(() => {
+        let cancelled = false;
+        slides.forEach(slide => {
+            const img = new Image();
+            img.crossOrigin = "anonymous";
+            img.onload = () => {
+                const tone = cancelled ? null : detectImageTone(img);
+                if (tone) {
+                    setTones(prev => (prev[slide.id] === tone ? prev : {...prev, [slide.id]: tone}));
+                }
+            };
+            img.src = slide.src;
+        });
+        return () => {
+            cancelled = true;
+        };
+    }, [signature]);
+
+    React.useEffect(() => {
+        if (paused || count < 2) return;
+        const timer = window.setInterval(() => setIndex(i => (i + 1) % count), AUTOPLAY_MS);
+        return () => window.clearInterval(timer);
+    }, [paused, count, current]);
+
     return (
-        <section id="home" className="relative flex min-h-[80vh] scroll-mt-16 items-center justify-center overflow-clip text-center text-white">
-            <img src={HeroImage} alt="" width={1200} height={800} fetchPriority="high" className="absolute inset-0 h-full w-full animate-hero-drift object-cover motion-reduce:animate-none" />
-            <div className="absolute inset-0 bg-linear-to-b from-brand/85 via-brand/65 to-brand/90" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,var(--color-brand)_130%)]" />
+        <section
+            id="home"
+            aria-roledescription="carousel"
+            aria-label="精選作品"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+            onFocus={() => setPaused(true)}
+            onBlur={() => setPaused(false)}
+            className={`relative flex min-h-[80vh] scroll-mt-16 flex-col overflow-clip transition-colors duration-1000 ${light ? "text-brand" : "text-white"}`}
+        >
+            {list.map((slide, i) => {
+                const active = i === current;
+                return (
+                    <div
+                        key={slide.id}
+                        role="group"
+                        aria-roledescription="slide"
+                        aria-label={`${i + 1} / ${count}`}
+                        aria-hidden={!active}
+                        inert={!active}
+                        className={`absolute inset-0 transition-opacity duration-1000 ${active ? "opacity-100" : "opacity-0"}`}
+                    >
+                        <img
+                            src={slide.src}
+                            alt={slide.alt}
+                            crossOrigin="anonymous"
+                            width={1200}
+                            height={800}
+                            fetchPriority={i === 0 ? "high" : "auto"}
+                            loading={i === 0 ? "eager" : "lazy"}
+                            className={`h-full w-full object-cover ${active ? "animate-hero-drift motion-reduce:animate-none" : ""}`}
+                        />
+                    </div>
+                );
+            })}
 
             <div aria-hidden="true" className="pointer-events-none absolute inset-4 animate-hero-frame border border-accent/30 motion-reduce:animate-none md:inset-8">
                 <span className="absolute -top-px -left-px h-6 w-6 border-t-2 border-l-2 border-accent" />
@@ -15,33 +104,61 @@ export const Hero = () => {
                 <span className="absolute -right-px -bottom-px h-6 w-6 border-r-2 border-b-2 border-accent" />
             </div>
 
-            <div className="hero-exit relative px-4 py-20">
-                <p className="animate-hero-rise text-xs tracking-[0.45em] text-accent uppercase motion-reduce:animate-none md:text-sm">Artisanso Engineering</p>
-                <h1 className="mt-4 animate-hero-rise text-4xl font-bold tracking-widest [animation-delay:150ms] motion-reduce:animate-none md:text-6xl">匠方工程</h1>
-                <div className="mx-auto mt-6 h-0.5 w-20 origin-center animate-hero-line bg-accent [animation-delay:450ms] motion-reduce:animate-none" />
-                <p className="mt-6 animate-hero-rise text-lg [animation-delay:600ms] motion-reduce:animate-none md:text-2xl">用心施工，每個細節皆見匠心</p>
-                <div className="mt-10 flex animate-hero-rise flex-col items-center justify-center gap-4 [animation-delay:800ms] motion-reduce:animate-none sm:flex-row">
-                    <a
-                        href="#showcase"
-                        className="group flex min-h-12 min-w-40 items-center justify-center gap-2 rounded border border-white px-6 font-semibold transition hover:bg-white hover:text-brand"
-                    >
-                        查看我們的作品
-                        <LuArrowRight aria-hidden="true" className="transition-transform group-hover:translate-x-1" />
-                    </a>
-                    <a
-                        href="#quote"
-                        className="flex min-h-12 min-w-40 items-center justify-center rounded bg-accent px-6 font-semibold shadow-lg shadow-accent/30 transition hover:-translate-y-0.5 hover:bg-accent-dark"
-                    >
-                        即時報價
-                    </a>
+            <div className="hero-exit relative flex flex-1 flex-col px-4 pt-24 pb-16 text-center md:px-16">
+                <div className="flex flex-1 items-center justify-center py-10" aria-live={paused ? "polite" : "off"}>
+                    <div key={list[current].id} className="animate-hero-rise motion-reduce:animate-none">
+                        {list[current].district && (
+                            <p className="mb-3 flex items-center justify-center gap-1.5 text-sm tracking-widest md:text-2xl">
+                                <LuMapPin aria-hidden="true" className="h-4 w-4" />
+                                {list[current].district}
+                            </p>
+                        )}
+                        <h2 className="text-4xl font-thin md:text-8xl">{list[current].title}</h2>
+                    </div>
                 </div>
+
+                {count > 1 && (
+                    <div className="mt-8 flex items-center justify-center gap-2">
+                        <div className="flex items-center">
+                            {list.map((slide, i) => (
+                                <button
+                                    key={slide.id}
+                                    type="button"
+                                    aria-label={`第 ${i + 1} 張`}
+                                    aria-current={i === current}
+                                    onClick={() => goTo(i)}
+                                    className="group flex h-11 w-6 items-center justify-center"
+                                >
+                                    <span
+                                        className={`block h-1 rounded-full transition-[width,background-color] duration-1000 ${i === current ? "w-6 bg-accent" : light ? "w-3 bg-brand/40 group-hover:bg-brand" : "w-3 bg-white/50 group-hover:bg-white"}`}
+                                    />
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                )}
             </div>
 
-            <a href="#about" aria-label="向下捲動" className="absolute bottom-10 left-1/2 hidden h-12 w-6 -translate-x-1/2 items-start justify-center md:flex">
-                <span className="relative block h-12 w-px overflow-hidden bg-white/20">
-                    <span className="absolute inset-x-0 top-0 block h-1/2 animate-scroll-cue bg-accent motion-reduce:animate-none" />
-                </span>
-            </a>
+            {count > 1 && (
+                <React.Fragment>
+                    <button
+                        type="button"
+                        aria-label="上一張"
+                        onClick={() => goTo(current - 1)}
+                        className="group absolute top-1/2 left-0 flex h-12 w-12 -translate-y-1/2 items-center justify-center bg-brand/40 text-white transition-colors hover:bg-accent lg:h-20 lg:w-20"
+                    >
+                        <LuChevronLeft aria-hidden="true" className="h-6 w-6 lg:h-10 lg:w-10" />
+                    </button>
+                    <button
+                        type="button"
+                        aria-label="下一張"
+                        onClick={() => goTo(current + 1)}
+                        className="group absolute top-1/2 right-0 flex h-12 w-12 -translate-y-1/2 items-center justify-center bg-brand/40 text-white transition-colors hover:bg-accent lg:h-20 lg:w-20"
+                    >
+                        <LuChevronRight aria-hidden="true" className="h-6 w-6 lg:h-10 lg:w-10" />
+                    </button>
+                </React.Fragment>
+            )}
         </section>
     );
 };

@@ -10,6 +10,7 @@ type ApiProject = {
     id: string;
     title: string;
     category: string;
+    district: string | null;
     position: number;
     cover_photo: {id: string; url: string} | null;
     photos: ApiPhoto[];
@@ -23,6 +24,7 @@ function toProject(item: ApiProject): Project {
         id: item.id,
         categoryId: item.category,
         name: item.title,
+        district: item.district || null,
         cover: item.cover_photo ? {src: item.cover_photo.url, alt: `${item.title} 裝修工程封面`} : null,
         images: photos.map((photo, index) => ({src: photo.url, alt: `${item.title} 裝修工程相片 ${index + 1}`})),
     };

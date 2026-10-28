@@ -12,6 +12,7 @@ export type Project = {
     id: string;
     categoryId: string;
     name: string;
+    district: string | null;
     images: ProjectImage[];
     cover: ProjectImage | null;
 };
