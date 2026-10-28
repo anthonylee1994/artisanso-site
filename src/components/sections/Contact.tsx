@@ -29,7 +29,7 @@ export const Contact = () => {
                                 <LuPhone className="h-6 w-6" aria-hidden="true" />
                             </span>
                             <span className="text-sm text-white/60">電話</span>
-                            <span className="max-w-full text-base break-words text-accent">{PHONE}</span>
+                            <span className="max-w-full text-base wrap-break-word text-accent">{PHONE}</span>
                         </a>
                     </li>
                     <li className="reveal min-w-0">
@@ -38,7 +38,7 @@ export const Contact = () => {
                                 <LuMail className="h-6 w-6" aria-hidden="true" />
                             </span>
                             <span className="text-sm text-white/60">電郵</span>
-                            <span className="max-w-full text-base break-words text-accent">{EMAIL.replace("@", "\u200b@")}</span>
+                            <span className="max-w-full text-base wrap-break-word text-accent">{EMAIL.replace("@", "\u200b@")}</span>
                         </a>
                     </li>
                     <li className="reveal min-w-0">
@@ -47,7 +47,7 @@ export const Contact = () => {
                                 <FiInstagram className="h-6 w-6" aria-hidden="true" />
                             </span>
                             <span className="text-sm text-white/60">Instagram</span>
-                            <span className="max-w-full text-base break-words text-accent">{INSTAGRAM_HANDLE}</span>
+                            <span className="max-w-full text-base wrap-break-word text-accent">{INSTAGRAM_HANDLE}</span>
                         </a>
                     </li>
                 </ul>
