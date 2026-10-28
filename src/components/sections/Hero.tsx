@@ -1,6 +1,6 @@
 import React from "react";
 import {LuChevronLeft, LuChevronRight, LuMapPin} from "react-icons/lu";
-import HeroImage from "@/assets/hero.jpg";
+import HeroImage from "@/assets/hero.webp";
 import {useProjects} from "@/hooks/useProjects";
 import {detectImageTone, type ImageTone} from "@/utils/imageTone";
 
@@ -52,25 +52,16 @@ export const Hero = () => {
         }
     };
 
-    // 預先偵測所有 slide 嘅色調，避免切換到未載入嘅 slide 時先白字後突然變色
-    const signature = list.map(slide => slide.id).join(",");
-    React.useEffect(() => {
-        let cancelled = false;
-        slides.forEach(slide => {
-            const img = new Image();
-            img.crossOrigin = "anonymous";
-            img.onload = () => {
-                const tone = cancelled ? null : detectImageTone(img);
-                if (tone) {
-                    setTones(prev => (prev[slide.id] === tone ? prev : {...prev, [slide.id]: tone}));
-                }
-            };
-            img.src = slide.src;
-        });
-        return () => {
-            cancelled = true;
-        };
-    }, [signature]);
+    // 只有當前同相鄰 slide 先會載入圖片，載入完順便偵測色調，
+    // 咁下一張切換時色調已經準備好，唔會先白字後突然變色
+    const isNear = (i: number) => i === current || i === (current + 1) % count || i === (current - 1 + count) % count;
+
+    const measureTone = (id: string, img: HTMLImageElement) => {
+        const tone = detectImageTone(img);
+        if (tone) {
+            setTones(prev => (prev[id] === tone ? prev : {...prev, [id]: tone}));
+        }
+    };
 
     React.useEffect(() => {
         if (paused || count < 2) return;
@@ -104,16 +95,23 @@ export const Hero = () => {
                         inert={!active}
                         className={`absolute inset-0 transition-opacity duration-1000 ${active ? "opacity-100" : "opacity-0"}`}
                     >
-                        <img
-                            src={slide.src}
-                            alt={slide.alt}
-                            crossOrigin="anonymous"
-                            width={1200}
-                            height={800}
-                            fetchPriority={i === 0 ? "high" : "auto"}
-                            loading={i === 0 ? "eager" : "lazy"}
-                            className={`h-full w-full object-cover ${active ? "animate-hero-drift motion-reduce:animate-none" : ""}`}
-                        />
+                        {isNear(i) && (
+                            <img
+                                ref={el => {
+                                    // SSG 水合時圖片可能已經載入完，onLoad 唔會再觸發
+                                    if (el && el.complete && el.naturalWidth > 0 && !tones[slide.id]) measureTone(slide.id, el);
+                                }}
+                                src={slide.src}
+                                alt={slide.alt}
+                                crossOrigin="anonymous"
+                                width={1200}
+                                height={800}
+                                fetchPriority={i === 0 ? "high" : "auto"}
+                                loading={i === 0 ? "eager" : "lazy"}
+                                onLoad={e => measureTone(slide.id, e.currentTarget)}
+                                className={`h-full w-full object-cover ${active ? "animate-hero-drift motion-reduce:animate-none" : ""}`}
+                            />
+                        )}
                     </div>
                 );
             })}
