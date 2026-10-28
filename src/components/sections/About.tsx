@@ -30,7 +30,7 @@ export const About = () => {
             <div className="mx-auto max-w-6xl">
                 <SectionTitle eyebrow="About Us" title="關於匠方工程" />
                 <p className="reveal mx-auto max-w-2xl text-center leading-8">
-                    匠方工程專注住宅及商業單位裝修工程，由設計商討、施工到驗收，全程由同一班師傅跟進。我們相信好的裝修就在細節，每個項目都按客戶預算和需要度身安排，準時交樓、價錢清楚。
+                    匠方工程專注住宅及商業單位裝修工程，擁有40年經驗，一直以質素優先、價錢老實為宗旨。由設計商討、施工到驗收，全程由同一班師傅跟進，確保每個細節都處理到位。我們相信好的裝修就在細節，每個項目均按客戶預算和需要度身安排，準時交樓、收費清楚。
                 </p>
                 <ul className="stagger mt-14 grid gap-6 sm:grid-cols-2">
                     {SELLING_POINTS.map((p, i) => (
