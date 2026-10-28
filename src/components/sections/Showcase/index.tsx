@@ -17,7 +17,7 @@ export const Showcase = () => {
     const visible = categoryId === "all" ? projects : projects.filter(p => p.categoryId === categoryId);
 
     return (
-        <section id="showcase" className="scroll-mt-16 bg-white pt-16 pb-[calc(4rem+var(--fab-clearance))]">
+        <section id="showcase" className="scroll-mt-16 bg-white pt-16">
             <div>
                 <div className="px-4">
                     <SectionTitle eyebrow="Our Projects" title="作品展示" subtitle="歡迎瀏覽我們完成的項目" />
