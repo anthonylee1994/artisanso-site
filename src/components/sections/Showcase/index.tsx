@@ -17,11 +17,13 @@ export const Showcase = () => {
     const visible = categoryId === "all" ? projects : projects.filter(p => p.categoryId === categoryId);
 
     return (
-        <section id="showcase" className="scroll-mt-16 bg-white px-4 pt-16 pb-[calc(4rem+var(--fab-clearance))]">
-            <div className="mx-auto max-w-6xl">
-                <SectionTitle eyebrow="Our Projects" title="作品展示" subtitle="歡迎瀏覽我們完成的項目" />
+        <section id="showcase" className="scroll-mt-16 bg-white pt-16 pb-[calc(4rem+var(--fab-clearance))]">
+            <div>
+                <div className="px-4">
+                    <SectionTitle eyebrow="Our Projects" title="作品展示" subtitle="歡迎瀏覽我們完成的項目" />
+                </div>
 
-                <div className="mb-8 flex flex-wrap justify-center gap-2">
+                <div className="mb-8 flex flex-wrap justify-center gap-2 px-4">
                     {tabs.map(tab => (
                         <button
                             key={tab.id}
@@ -39,9 +41,9 @@ export const Showcase = () => {
                 </div>
 
                 {status === "loading" && <CircularProgress />}
-                {status === "error" && <p className="py-16 text-center text-brand-light">暫時未能載入作品，請稍後再試。</p>}
+                {status === "error" && <p className="px-4 py-16 text-center text-brand-light">暫時未能載入作品，請稍後再試。</p>}
 
-                <div key={categoryId} className={`stagger grid gap-6 md:grid-cols-2 lg:grid-cols-3 ${switched ? "tab-swap" : ""}`}>
+                <div key={categoryId} className={`stagger grid md:grid-cols-2 lg:grid-cols-3 ${switched ? "tab-swap" : ""}`}>
                     {visible.map(project => (
                         <ProjectCard key={project.id} project={project} categoryName={CATEGORIES.find(c => c.id === project.categoryId)?.name ?? ""} onOpen={lightbox.open} />
                     ))}
