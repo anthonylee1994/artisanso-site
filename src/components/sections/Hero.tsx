@@ -14,7 +14,7 @@ type Slide = {
     district: string | null;
 };
 
-const FALLBACK_SLIDE: Slide = {id: "fallback", src: HeroImage, alt: "", title: "用心施工，每個細節皆見匠心", district: null};
+const FALLBACK_SLIDE: Slide = {id: "fallback", src: HeroImage, alt: "", title: "", district: null};
 
 export const Hero = () => {
     const {projects} = useProjects();
