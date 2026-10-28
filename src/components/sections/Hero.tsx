@@ -129,12 +129,12 @@ export const Hero = () => {
                 <div className="flex flex-1 items-center justify-center py-10" aria-live={paused ? "polite" : "off"}>
                     <div key={list[current].id} className="animate-hero-rise motion-reduce:animate-none">
                         {list[current].district && (
-                            <p className="mb-3 flex items-center justify-center gap-1.5 text-sm tracking-widest transition-all md:text-2xl">
+                            <p className="mb-3 flex items-center justify-center gap-1.5 text-sm tracking-widest transition-[font-size] duration-500 md:text-2xl">
                                 <LuMapPin aria-hidden="true" className="h-4 w-4" />
                                 {list[current].district}
                             </p>
                         )}
-                        <h2 className="text-4xl font-thin transition-all md:text-8xl">{list[current].title}</h2>
+                        <h2 className="text-4xl font-thin transition-[font-size] duration-500 md:text-8xl">{list[current].title}</h2>
                     </div>
                 </div>
 
