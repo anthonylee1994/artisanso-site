@@ -5,6 +5,7 @@ import {useProjects} from "@/hooks/useProjects";
 import {detectImageTone, type ImageTone} from "@/utils/imageTone";
 
 const AUTOPLAY_MS = 5000;
+const SWIPE_THRESHOLD = 50;
 
 type Slide = {
     id: string;
@@ -21,6 +22,7 @@ export const Hero = () => {
     const [index, setIndex] = React.useState(0);
     const [paused, setPaused] = React.useState(false);
     const [tones, setTones] = React.useState<Record<string, ImageTone>>({});
+    const swipeStart = React.useRef<{x: number; y: number} | null>(null);
 
     const slides: Slide[] = projects.flatMap(project => {
         const cover = project.cover || project.images[0];
@@ -33,6 +35,22 @@ export const Hero = () => {
     const light = tones[list[current].id] === "light";
 
     const goTo = (target: number) => setIndex((target + count) % count);
+
+    // 觸控 / 手寫筆橫向掃動換 slide，直向掃動仍然係捲動頁面（touch-pan-y）
+    const onPointerDown = (e: React.PointerEvent) => {
+        if (e.pointerType === "mouse") return;
+        swipeStart.current = {x: e.clientX, y: e.clientY};
+    };
+
+    const onPointerUp = (e: React.PointerEvent) => {
+        const start = swipeStart.current;
+        swipeStart.current = null;
+        if (!start || count < 2) return;
+        const dx = e.clientX - start.x;
+        if (Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(e.clientY - start.y)) {
+            goTo(dx > 0 ? current - 1 : current + 1);
+        }
+    };
 
     // 預先偵測所有 slide 嘅色調，避免切換到未載入嘅 slide 時先白字後突然變色
     const signature = list.map(slide => slide.id).join(",");
@@ -65,11 +83,14 @@ export const Hero = () => {
             id="home"
             aria-roledescription="carousel"
             aria-label="精選作品"
-            onMouseEnter={() => setPaused(true)}
-            onMouseLeave={() => setPaused(false)}
+            onPointerEnter={e => e.pointerType === "mouse" && setPaused(true)}
+            onPointerLeave={e => e.pointerType === "mouse" && setPaused(false)}
+            onPointerDown={onPointerDown}
+            onPointerUp={onPointerUp}
+            onPointerCancel={() => (swipeStart.current = null)}
             onFocus={() => setPaused(true)}
             onBlur={() => setPaused(false)}
-            className={`relative flex min-h-[80vh] scroll-mt-16 flex-col overflow-clip transition-colors duration-1000 ${light ? "text-brand" : "text-white"}`}
+            className={`relative flex min-h-[80vh] touch-pan-y scroll-mt-16 flex-col overflow-clip transition-colors duration-1000 ${light ? "text-brand" : "text-white"}`}
         >
             {list.map((slide, i) => {
                 const active = i === current;
