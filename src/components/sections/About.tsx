@@ -29,7 +29,7 @@ export const About = () => {
         <section id="about" className="relative scroll-mt-16 bg-[radial-gradient(circle,rgb(184_134_75/0.18)_1px,transparent_1px)] bg-size-[28px_28px] px-4 py-20">
             <div className="mx-auto max-w-6xl">
                 <SectionTitle eyebrow="About Us" title="關於匠方工程" />
-                <p className="reveal mx-auto max-w-2xl text-center leading-8">
+                <p className="reveal mx-auto max-w-3xl text-center leading-8">
                     匠方工程專注住宅及商業單位裝修工程，擁有40年經驗，在行內有絕皆口碑。我們一直以質素優先、價錢老實為宗旨，由設計商討、施工到驗收，全程由同一班師傅跟進，確保每個細節都處理到位。我們相信好的裝修就在細節，每個項目均按客戶預算和需要度身安排，準時交樓、收費清楚。
                 </p>
                 <ul className="stagger mt-14 grid gap-6 sm:grid-cols-2">
