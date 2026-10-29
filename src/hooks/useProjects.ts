@@ -1,34 +1,22 @@
 import React from "react";
 import {useLoaderData} from "react-router-dom";
-import {fetchProjects} from "@/api/projectsApi";
+import {useProjectsStore} from "@/stores/useProjectsStore";
 import type {Project} from "@/types";
 
-export type ProjectsStatus = "loading" | "success" | "error";
+export type {ProjectsStatus} from "@/stores/useProjectsStore";
 
 export function useProjects() {
     // Build 時預載嘅資料已經喺 HTML 入面，首次 render 即有內容，唔使等 fetch
     const prefetched = useLoaderData() as Project[] | null;
-    const [projects, setProjects] = React.useState<Project[]>(prefetched ?? []);
-    const [status, setStatus] = React.useState<ProjectsStatus>(prefetched ? "success" : "loading");
+    const {projects, status, refresh} = useProjectsStore();
 
     React.useEffect(() => {
-        let cancelled = false;
-        // 有預載資料時靜默更新，只有內容真係變咗先重新 render
-        fetchProjects()
-            .then(data => {
-                if (cancelled) return;
-                setProjects(prev => (JSON.stringify(prev) === JSON.stringify(data) ? prev : data));
-                setStatus("success");
-            })
-            .catch(() => {
-                if (!cancelled && !prefetched) {
-                    setStatus("error");
-                }
-            });
-        return () => {
-            cancelled = true;
-        };
+        refresh(prefetched !== null);
     }, []);
 
+    // Store 未載入前用預載資料頂住
+    if (status === "loading" && prefetched) {
+        return {projects: prefetched, status: "success" as const};
+    }
     return {projects, status};
 }

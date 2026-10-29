@@ -1,47 +1,21 @@
 import React from "react";
-import {clientGet, toApiError} from "@/api/clientApi";
-import type {ApiError, ClientProject} from "@/types/progress";
-
-function normalize(project: ClientProject): ClientProject {
-    return {
-        ...project,
-        milestones: [...(project.milestones ?? [])].sort((a, b) => a.position - b.position),
-        photos: [...(project.photos ?? [])].sort((a, b) => a.position - b.position),
-    };
-}
+import {useClientProjectStore} from "@/stores/useClientProjectStore";
 
 export function useClientProject(code: string | null, onUnauthorized: () => void) {
-    const [project, setProject] = React.useState<ClientProject | null>(null);
-    const [error, setError] = React.useState<ApiError | null>(null);
-    const [nonce, setNonce] = React.useState(0);
+    const {project, error, load, cancel, clear} = useClientProjectStore();
 
     React.useEffect(() => {
         if (!code) {
-            setProject(null);
-            setError(null);
+            clear();
             return;
         }
-        const controller = new AbortController();
-        clientGet<ClientProject>("/project", code, controller.signal)
-            .then(res => {
-                setProject(normalize(res.data));
-                setError(null);
-            })
-            .catch(e => {
-                if (controller.signal.aborted) return;
-                const apiError = toApiError(e);
-                if (apiError.status === 401) {
-                    setProject(null);
-                    setError(null);
-                    onUnauthorized();
-                } else {
-                    setError(apiError);
-                }
-            });
-        return () => controller.abort();
-    }, [code, nonce]);
+        load(code, onUnauthorized);
+        return cancel;
+    }, [code]);
 
-    const reload = () => setNonce(n => n + 1);
+    const reload = () => {
+        if (code) load(code, onUnauthorized);
+    };
 
     return {project, error, reload};
 }

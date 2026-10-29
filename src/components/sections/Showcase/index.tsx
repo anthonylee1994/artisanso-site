@@ -1,6 +1,6 @@
-import React from "react";
 import {CATEGORIES} from "@/data/projects";
 import {useProjects} from "@/hooks/useProjects";
+import {useShowcaseStore} from "@/stores/useShowcaseStore";
 import {useLightbox} from "@/hooks/useLightbox";
 import {Lightbox} from "@/components/ui/Lightbox";
 import {CircularProgress} from "@/components/ui/CircularProgress";
@@ -8,8 +8,7 @@ import {SectionTitle} from "@/components/ui/SectionTitle";
 import {ProjectCard} from "./ProjectCard";
 
 export const Showcase = () => {
-    const [categoryId, setCategoryId] = React.useState("all");
-    const [switched, setSwitched] = React.useState(false);
+    const {categoryId, switched, selectCategory} = useShowcaseStore();
     const lightbox = useLightbox();
     const {projects, status} = useProjects();
 
@@ -29,10 +28,7 @@ export const Showcase = () => {
                             key={tab.id}
                             type="button"
                             aria-pressed={categoryId === tab.id}
-                            onClick={() => {
-                                setCategoryId(tab.id);
-                                setSwitched(true);
-                            }}
+                            onClick={() => selectCategory(tab.id)}
                             className={`min-h-11 rounded-full px-5 font-semibold transition ${categoryId === tab.id ? "bg-accent text-white shadow-md shadow-accent/30" : "bg-surface text-brand hover:-translate-y-0.5 hover:bg-accent/20"}`}
                         >
                             {tab.name}

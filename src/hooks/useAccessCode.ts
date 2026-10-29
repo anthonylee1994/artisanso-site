@@ -1,35 +1,14 @@
 import React from "react";
-import {readUrlCode} from "@/utils/accessCode";
+import {useAccessStore} from "@/stores/useAccessStore";
 
-export type AccessPhase = "init" | "needs_code" | "active";
+export type {AccessPhase} from "@/stores/useAccessStore";
 
 export function useAccessCode() {
-    const [code, setCode] = React.useState<string | null>(null);
-    const [phase, setPhase] = React.useState<AccessPhase>("init");
-    const [rejected, setRejected] = React.useState(false);
+    const state = useAccessStore();
 
     React.useEffect(() => {
-        const initial = readUrlCode();
-        if (initial) {
-            setCode(initial);
-            setPhase("active");
-        } else {
-            setPhase("needs_code");
-        }
+        state.init();
     }, []);
 
-    const submit = (value: string) => {
-        setCode(value.trim());
-        setRejected(false);
-        setPhase("active");
-    };
-
-    // 401：丟棄 code，返回 AccessGate
-    const reject = () => {
-        setCode(null);
-        setRejected(true);
-        setPhase("needs_code");
-    };
-
-    return {code, phase, rejected, submit, reject};
+    return {code: state.code, phase: state.phase, rejected: state.rejected, submit: state.submit, reject: state.reject};
 }

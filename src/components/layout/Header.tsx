@@ -1,4 +1,4 @@
-import React from "react";
+import {useMenuStore} from "@/stores/useMenuStore";
 import {useActiveSection} from "@/hooks/useActiveSection";
 
 const NAV_ITEMS = [
@@ -10,7 +10,7 @@ const NAV_ITEMS = [
 ];
 
 export const Header = () => {
-    const [menuOpen, setMenuOpen] = React.useState(false);
+    const {menuOpen, setMenuOpen, toggleMenu} = useMenuStore();
     const active = useActiveSection(NAV_ITEMS.map(i => i.id));
 
     return (
@@ -43,7 +43,7 @@ export const Header = () => {
                         aria-label="開關選單"
                         aria-expanded={menuOpen}
                         aria-controls="mobile-menu"
-                        onClick={() => setMenuOpen(!menuOpen)}
+                        onClick={toggleMenu}
                         className="flex h-11 w-11 items-center justify-center md:hidden"
                     >
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">

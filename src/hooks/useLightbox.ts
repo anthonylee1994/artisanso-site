@@ -1,35 +1,11 @@
 import React from "react";
-import type {Project} from "@/types";
+import {useLightboxStore} from "@/stores/useLightboxStore";
 
-export type SlideDirection = "next" | "prev";
+export type {SlideDirection} from "@/stores/useLightboxStore";
 
 export function useLightbox() {
-    const [project, setProject] = React.useState<Project | null>(null);
-    const [index, setIndex] = React.useState(0);
-    const [direction, setDirection] = React.useState<SlideDirection | null>(null);
-    const triggerRef = React.useRef<HTMLElement | null>(null);
-
-    const open = (target: Project, trigger: HTMLElement | null, startIndex = 0) => {
-        triggerRef.current = trigger;
-        setProject(target);
-        setIndex(startIndex);
-        setDirection(null);
-    };
-
-    const close = () => setProject(null);
-
-    const next = () => {
-        if (!project) return;
-        setDirection("next");
-        setIndex(i => (i + 1) % project.images.length);
-    };
-
-    const prev = () => {
-        if (!project) return;
-        setDirection("prev");
-        setIndex(i => (i - 1 + project.images.length) % project.images.length);
-    };
-
+    const state = useLightboxStore();
+    const {project, trigger, close, next, prev} = state;
     const isOpen = project !== null;
 
     // 鎖 body scroll、關閉後 focus 返去觸發嘅 Card
@@ -38,7 +14,6 @@ export function useLightbox() {
         const original = document.body.style.overflow;
         document.body.style.overflow = "hidden";
         document.documentElement.setAttribute("data-lightbox-open", "");
-        const trigger = triggerRef.current;
         return () => {
             document.body.style.overflow = original;
             document.documentElement.removeAttribute("data-lightbox-open");
@@ -56,7 +31,10 @@ export function useLightbox() {
         };
         window.addEventListener("keydown", onKeyDown);
         return () => window.removeEventListener("keydown", onKeyDown);
-    });
+    }, [isOpen]);
 
-    return {project, index, direction, isOpen, open, close, next, prev};
+    // Store 係全域，離開頁面時要關閉
+    React.useEffect(() => close, []);
+
+    return {...state, isOpen};
 }
