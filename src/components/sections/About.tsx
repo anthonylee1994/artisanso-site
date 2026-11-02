@@ -1,5 +1,4 @@
 import {LuBadgeDollarSign, LuHardHat, LuMapPin, LuRuler} from "react-icons/lu";
-import {SectionTitle} from "@/components/ui/SectionTitle";
 
 const SELLING_POINTS = [
     {
@@ -26,24 +25,36 @@ const SELLING_POINTS = [
 
 export const About = () => {
     return (
-        <section id="about" className="relative scroll-mt-16 bg-[radial-gradient(circle,rgb(184_134_75/0.18)_1px,transparent_1px)] bg-size-[28px_28px] px-4 py-20">
+        <section id="about" className="relative scroll-mt-16 bg-[radial-gradient(circle,rgb(184_134_75/0.18)_1px,transparent_1px)] bg-size-[28px_28px] px-6 py-20 md:px-12 md:py-28">
             <div className="mx-auto max-w-6xl">
-                <SectionTitle eyebrow="About Us" title="關於匠方工程" />
-                <p className="reveal mx-auto max-w-2xl text-center leading-8">
-                    匠方工程專注住宅及商業單位裝修工程，擁有40年經驗，在行內有口皆碑。我們以質素優先、價錢老實為宗旨，由設計商討、施工到驗收，全程由同一班師傅跟進，確保每個細節都處理到位。我們相信好的裝修就在細節，每個項目按客戶預算和需要度身安排，準時交樓、收費清楚。
-                </p>
-                <ul className="stagger mt-14 grid gap-6 sm:grid-cols-2">
+                <div className="reveal grid gap-10 lg:grid-cols-[2fr_3fr] lg:gap-20">
+                    <div>
+                        <p className="mb-5 flex items-center gap-3 text-xs tracking-[0.4em] text-accent uppercase">
+                            <span aria-hidden="true" className="h-px w-10 bg-accent" />
+                            About Us
+                        </p>
+                        <h2 className="text-5xl leading-[1.1] font-light whitespace-nowrap text-brand md:text-6xl">關於匠方工程</h2>
+                    </div>
+                    <div className="lg:pt-10">
+                        <p className="mb-6 flex items-baseline gap-3">
+                            <span className="text-6xl font-light text-accent tabular-nums md:text-7xl">40</span>
+                            <span className="text-lg text-brand-light">年裝修經驗</span>
+                        </p>
+                        <p className="max-w-2xl leading-8 text-brand-light">
+                            匠方工程專注住宅及商業單位裝修工程，在行內有口皆碑。我們以質素優先、價錢老實為宗旨，由設計商討、施工到驗收，全程由同一班師傅跟進，確保每個細節都處理到位。我們相信好的裝修就在細節，每個項目按客戶預算和需要度身安排，準時交樓、收費清楚。
+                        </p>
+                    </div>
+                </div>
+
+                <ul className="stagger mt-16 grid border-t border-brand/20 sm:grid-cols-2 lg:mt-24 lg:grid-cols-4">
                     {SELLING_POINTS.map((p, i) => (
-                        <li key={p.title} className="reveal group relative overflow-hidden rounded-lg bg-white p-6 text-left shadow-sm transition duration-300 hover:-translate-y-1.5 hover:shadow-xl">
-                            <span aria-hidden="true" className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-accent transition-transform duration-500 group-hover:scale-x-100" />
-                            <span aria-hidden="true" className="absolute top-3 right-4 text-5xl font-bold text-accent/25 transition-colors duration-300 group-hover:text-accent/40">
-                                {String(i + 1).padStart(2, "0")}
-                            </span>
-                            <div className="relative flex h-14 w-14 items-center justify-center rounded-full bg-accent/10 text-accent transition duration-300 group-hover:scale-110 group-hover:bg-accent group-hover:text-white">
-                                <p.icon className="h-7 w-7" aria-hidden="true" />
+                        <li key={p.title} className="reveal group border-b border-brand/20 py-8 sm:pr-8 lg:border-b-0 lg:not-first:pl-8 lg:not-last:border-r lg:not-last:border-brand/20">
+                            <div className="flex items-center justify-between">
+                                <span className="text-sm tracking-widest text-accent tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+                                <p.icon className="h-8 w-8 text-accent transition-transform duration-300 group-hover:-translate-y-1" aria-hidden="true" />
                             </div>
-                            <h3 className="relative mt-4 pr-14 font-bold">{p.title}</h3>
-                            <p className="relative mt-2 text-sm leading-7 text-brand-light">{p.text}</p>
+                            <h3 className="mt-8 text-xl font-semibold text-brand">{p.title}</h3>
+                            <p className="mt-3 leading-7 text-brand-light">{p.text}</p>
                         </li>
                     ))}
                 </ul>
