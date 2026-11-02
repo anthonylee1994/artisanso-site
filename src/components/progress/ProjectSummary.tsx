@@ -7,33 +7,42 @@ export const ProjectSummary = (props: {project: ClientProject}) => {
     const {project} = props;
     const total = project.milestones.length;
     const done = project.milestones.filter(m => m.status === "done").length;
+    const percent = total > 0 ? Math.round((done / total) * 100) : 0;
     const categoryName = CATEGORIES.find(c => c.id === project.category)?.name;
 
-    const links = [{id: "progress-milestones", label: "進度"}, ...(project.photos.length > 0 ? [{id: "progress-photos", label: "相片"}] : []), {id: "progress-comments", label: "留言"}];
-
     return (
-        <section aria-labelledby="project-title" className="mb-8">
-            {project.cover_photo && <img src={project.cover_photo.url} alt={`${project.title} 封面`} width={1200} height={900} className="mb-4 aspect-4/3 w-full rounded-lg object-cover" />}
-            <h1 id="project-title" className="mb-2 text-2xl font-bold wrap-break-word">
-                {project.title}
-            </h1>
-            <div className="mb-3 flex flex-wrap items-center gap-2 text-sm">
-                <span className="rounded-full bg-accent px-3 py-0.5 font-semibold text-white">{STATUS_LABEL[project.status]}</span>
-                {project.district && <span className="text-brand-light">{project.district}</span>}
-                {categoryName && <span className="rounded bg-white px-2 py-0.5 text-brand-light">{categoryName}</span>}
+        <section aria-labelledby="project-title" className="mb-12">
+            <div className="relative flex min-h-72 items-end overflow-clip rounded-lg bg-brand text-white md:min-h-96">
+                {project.cover_photo && <img src={project.cover_photo.url} alt={`${project.title} 封面`} width={1200} height={900} className="absolute inset-0 h-full w-full object-cover" />}
+                <div aria-hidden="true" className="absolute inset-0 bg-linear-to-t from-brand/90 via-brand/30 to-brand/10" />
+                <div className="relative w-full p-6 md:p-10">
+                    <p className="mb-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+                        <span className="rounded-md bg-accent px-3 py-1 font-semibold text-white">{STATUS_LABEL[project.status]}</span>
+                        {project.district && <span className="tracking-widest text-white/90">{project.district}</span>}
+                        {categoryName && <span className="text-white/70">{categoryName}</span>}
+                    </p>
+                    <h1 id="project-title" className="text-4xl leading-[1.1] font-light wrap-break-word md:text-6xl">
+                        {project.title}
+                    </h1>
+                </div>
             </div>
+
             {total > 0 && (
-                <p className="mb-4 text-sm text-brand-light">
-                    已完成 {done} / {total} 項
-                </p>
+                <div className="mt-8 flex items-center gap-6">
+                    <p className="flex items-baseline gap-1 text-accent">
+                        <span className="text-5xl font-light tabular-nums md:text-6xl">{percent}</span>
+                        <span className="text-xl">%</span>
+                    </p>
+                    <div className="flex-1">
+                        <div role="progressbar" aria-valuemin={0} aria-valuemax={total} aria-valuenow={done} aria-label="工程完成進度" className="h-1.5 overflow-hidden rounded-full bg-brand/15">
+                            <div className="h-full rounded-full bg-accent transition-[width] duration-700" style={{width: `${percent}%`}} />
+                        </div>
+                        <p className="mt-2 text-sm text-brand-light">
+                            已完成 {done} / {total} 項
+                        </p>
+                    </div>
+                </div>
             )}
-            <nav aria-label="頁內導航" className="flex gap-2 border-t border-brand/10 pt-3">
-                {links.map(link => (
-                    <a key={link.id} href={`#${link.id}`} className="flex min-h-11 items-center rounded-full bg-white px-5 font-semibold hover:bg-accent/20">
-                        {link.label}
-                    </a>
-                ))}
-            </nav>
         </section>
     );
 };

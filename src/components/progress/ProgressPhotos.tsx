@@ -2,6 +2,7 @@ import {Lightbox} from "@/components/ui/Lightbox";
 import {useLightbox} from "@/hooks/useLightbox";
 import type {Project} from "@/types";
 import type {ClientProject} from "@/types/progress";
+import {SectionHeading} from "./SectionHeading";
 
 export const ProgressPhotos = (props: {project: ClientProject}) => {
     const lightbox = useLightbox();
@@ -18,20 +19,25 @@ export const ProgressPhotos = (props: {project: ClientProject}) => {
     };
 
     return (
-        <section id="progress-photos" aria-labelledby="photos-title" className="mb-10 scroll-mt-20">
-            <h2 id="photos-title" className="mb-4 text-xl font-bold">
-                工程相片
-            </h2>
-            <ul className="grid grid-cols-2 gap-2 md:grid-cols-3">
+        <section id="progress-photos" aria-labelledby="photos-title" className="scroll-mt-20">
+            <SectionHeading id="photos-title" eyebrow="Photos" title="工程相片" />
+            <ul className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
                 {photos.map((photo, i) => (
                     <li key={photo.id}>
                         <button
                             type="button"
                             aria-label={`放大工程相片 ${i + 1}`}
                             onClick={e => lightbox.open(lightboxProject, e.currentTarget, i)}
-                            className="block w-full cursor-pointer overflow-hidden rounded"
+                            className="group block w-full cursor-pointer overflow-hidden rounded-md"
                         >
-                            <img src={photo.url} alt={`${title} 工程相片 ${i + 1}`} loading="lazy" width={400} height={300} className="aspect-4/3 w-full object-cover" />
+                            <img
+                                src={photo.url}
+                                alt={`${title} 工程相片 ${i + 1}`}
+                                loading="lazy"
+                                width={400}
+                                height={300}
+                                className="aspect-4/3 w-full object-cover transition duration-500 group-hover:scale-105"
+                            />
                         </button>
                     </li>
                 ))}

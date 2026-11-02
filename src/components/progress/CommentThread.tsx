@@ -26,14 +26,16 @@ export const CommentThread = (props: CommentThreadProps) => {
                 </p>
             </div>
             {props.truncated && <p className="mb-3 text-sm text-brand-light">只顯示最早 1000 則</p>}
-            <div role="log" aria-live="polite" aria-busy={!props.loaded} aria-label="留言記錄" className="flex flex-col gap-3">
+            <div role="log" aria-live="polite" aria-busy={!props.loaded} aria-label="留言記錄" className="flex flex-col gap-4">
                 {props.loaded && props.comments.length === 0 && <p className="text-brand-light">有任何問題，歡迎在下方留言。</p>}
                 {props.comments.map(comment => {
                     const mine = comment.author_role === "client";
                     return (
                         <div key={comment.id} className={`flex ${mine ? "justify-end" : "justify-start"}`}>
-                            <div className={`max-w-[85%] rounded-lg px-4 py-2 ${mine ? "bg-accent/15" : "bg-white"}`}>
-                                <p className="text-xs text-brand-light">
+                            <div
+                                className={`max-w-[85%] px-5 py-3 md:max-w-[75%] ${mine ? "rounded-2xl rounded-br-sm bg-brand text-white" : "rounded-2xl rounded-bl-sm border border-brand/10 bg-white shadow-sm"}`}
+                            >
+                                <p className={`text-xs ${mine ? "text-white/60" : "text-brand-light"}`}>
                                     <span className="font-semibold">{mine ? "你" : "匠方工程"}</span>
                                     {" · "}
                                     {formatDateTime(comment.created_at)}

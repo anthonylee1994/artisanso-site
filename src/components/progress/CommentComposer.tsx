@@ -64,8 +64,8 @@ export const CommentComposer = (props: CommentComposerProps) => {
     const errorText = error === "rate_limited" ? (locked ? `留言太頻密，請 ${countdown.remaining} 秒後再試。` : "") : error;
 
     return (
-        <form onSubmit={onSubmit} className="mt-6" noValidate>
-            <label htmlFor="comment-body" className="mb-1 block text-sm font-semibold">
+        <form onSubmit={onSubmit} className="mt-8 rounded-lg border border-brand/10 bg-white p-5 shadow-sm md:p-6" noValidate>
+            <label htmlFor="comment-body" className="mb-2 block text-sm font-semibold tracking-wide">
                 留言
             </label>
             <textarea
@@ -77,7 +77,7 @@ export const CommentComposer = (props: CommentComposerProps) => {
                 rows={4}
                 aria-describedby="comment-hint comment-error"
                 aria-invalid={Boolean(errorText) || body.length > MAX_LENGTH}
-                className="w-full rounded border border-brand/30 bg-white px-3 py-2 disabled:bg-surface"
+                className="min-h-12 w-full rounded-md border border-brand/20 bg-surface/60 px-4 py-2 transition-colors focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/30 focus:outline-none disabled:opacity-60"
             />
             <div className="mt-1 flex justify-between text-xs text-brand-light">
                 <span id="comment-hint">留言送出後無法修改或刪除。</span>
@@ -91,7 +91,7 @@ export const CommentComposer = (props: CommentComposerProps) => {
             <button
                 type="submit"
                 disabled={!canSend}
-                className="mt-2 min-h-11 rounded bg-accent px-6 font-semibold text-white transition hover:bg-accent-dark disabled:cursor-not-allowed disabled:opacity-50"
+                className="mt-3 min-h-12 rounded-md bg-accent px-8 font-semibold text-white transition hover:bg-accent-dark disabled:cursor-not-allowed disabled:opacity-50"
             >
                 {sending ? "送出中…" : "送出"}
             </button>
