@@ -56,3 +56,20 @@ export type ApiResult<T> = {
     data: T;
     meta?: ApiMeta;
 };
+
+export type ClientQuote = {
+    id: string;
+    reference_no: string;
+    customer_name: string;
+    contact_person: string | null;
+    customer_phone: string | null;
+    subtotal: string;
+    discount: string;
+    total: string;
+    notes: string | null;
+    quotation_visible: boolean;
+    invoice_visible: boolean;
+    invoice_no: string | null; // 只有 invoice_visible 先有值
+    due_date: string | null; // YYYY-MM-DD，只有 invoice_visible 先有值
+    sections: Array<{id: string; title: string; position: number; line_items: Array<{id: string; description: string; qty: string; unit_price: string; amount: string; position: number}>}>;
+};

@@ -10,3 +10,10 @@ export function formatDateTime(iso: string) {
     if (Number.isNaN(date.getTime())) return "";
     return new Intl.DateTimeFormat("zh-HK", {dateStyle: "medium", timeStyle: "short"}).format(date);
 }
+
+// 香港今日嘅日期（YYYY-MM-DD）
+export function todayInHongKong(now: Date = new Date()) {
+    const parts = new Intl.DateTimeFormat("en-CA", {timeZone: "Asia/Hong_Kong", year: "numeric", month: "2-digit", day: "2-digit"}).formatToParts(now);
+    const pick = (type: string) => parts.find(part => part.type === type)?.value ?? "";
+    return `${pick("year")}-${pick("month")}-${pick("day")}`;
+}

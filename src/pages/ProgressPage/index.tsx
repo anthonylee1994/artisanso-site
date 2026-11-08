@@ -6,11 +6,13 @@ import {MilestoneTimeline} from "@/components/progress/MilestoneTimeline";
 import {ProgressLayout} from "@/components/progress/ProgressLayout";
 import {ProgressTabs, panelId, tabId} from "@/components/progress/ProgressTabs";
 import {ProgressPhotos} from "@/components/progress/ProgressPhotos";
+import {QuoteDocuments} from "@/components/progress/QuoteDocuments";
 import {ProjectSummary} from "@/components/progress/ProjectSummary";
 import {SectionHeading} from "@/components/progress/SectionHeading";
 import {useAccessCode} from "@/hooks/useAccessCode";
 import {useClientComments} from "@/hooks/useClientComments";
 import {useClientProject} from "@/hooks/useClientProject";
+import {useClientQuotes} from "@/hooks/useClientQuotes";
 import {Skeleton} from "./Skeleton";
 
 export const ProgressPage = () => {
@@ -21,10 +23,12 @@ export const ProgressPage = () => {
 
     const project = useClientProject(access.code, access.reject);
     const comments = useClientComments(project.project ? access.code : null, access.reject);
+    const quotes = useClientQuotes(project.project ? access.code : null, access.reject);
 
     const refreshAll = () => {
         project.reload();
         comments.reload();
+        quotes.reload();
     };
 
     // 分頁重新可見時更新一次
@@ -53,7 +57,12 @@ export const ProgressPage = () => {
             );
         }
         if (project.project) {
-            const tabs = [{id: "milestones", label: "進度"}, ...(project.project.photos.length > 0 ? [{id: "photos", label: "相片"}] : []), {id: "comments", label: "留言"}];
+            const tabs = [
+                {id: "milestones", label: "進度"},
+                ...(project.project.photos.length > 0 ? [{id: "photos", label: "相片"}] : []),
+                ...(quotes.quotes.length > 0 ? [{id: "documents", label: "文件"}] : []),
+                {id: "comments", label: "留言"},
+            ];
             const active = tabs.some(t => t.id === tab) ? tab : "milestones";
 
             return (
@@ -69,6 +78,7 @@ export const ProgressPage = () => {
                     >
                         {active === "milestones" && <MilestoneTimeline milestones={project.project.milestones} />}
                         {active === "photos" && <ProgressPhotos project={project.project} />}
+                        {active === "documents" && <QuoteDocuments quotes={quotes.quotes} />}
                         {active === "comments" && (
                             <section id="progress-comments" aria-labelledby="comments-title">
                                 <SectionHeading id="comments-title" eyebrow="Messages" title="留言" />
