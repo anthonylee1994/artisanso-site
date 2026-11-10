@@ -1,7 +1,5 @@
-import type {ClientQuote} from "@/types/progress";
+import type {ClientInvoice, ClientQuote} from "@/types/progress";
 import {todayInHongKong} from "@/utils/dates";
-
-export type QuoteDocumentKind = "quotation" | "invoice";
 
 function triggerDownload(blob: Blob, filename: string) {
     const url = URL.createObjectURL(blob);
@@ -20,12 +18,14 @@ function safeName(value: string) {
 }
 
 // PDF 模組（連同 @react-pdf/renderer 與字型）只經呢度嘅 dynamic import 載入，唔納入主 bundle。
-export async function downloadQuotePdf(quote: ClientQuote, kind: QuoteDocumentKind) {
-    const invoice = kind === "invoice" && quote.invoice_visible && quote.invoice_no && quote.due_date ? {invoiceNo: quote.invoice_no, dueDate: quote.due_date} : undefined;
-    if (kind === "invoice" && !invoice) throw new Error("invoice not available");
-    if (kind === "quotation" && !quote.quotation_visible) throw new Error("quotation not available");
-
+export async function downloadQuotePdf(quote: ClientQuote) {
     const {renderQuotePdf} = await import("./renderQuotePdf");
-    const blob = await renderQuotePdf(quote, todayInHongKong(), invoice);
-    triggerDownload(blob, invoice ? `invoice-${safeName(invoice.invoiceNo)}.pdf` : `quotation-${safeName(quote.reference_no)}.pdf`);
+    const blob = await renderQuotePdf(quote, todayInHongKong());
+    triggerDownload(blob, `quotation-${safeName(quote.reference_no)}.pdf`);
+}
+
+export async function downloadInvoicePdf(invoice: ClientInvoice) {
+    const {renderInvoicePdf} = await import("./renderQuotePdf");
+    const blob = await renderInvoicePdf(invoice, todayInHongKong());
+    triggerDownload(blob, `invoice-${safeName(invoice.invoice_no)}.pdf`);
 }

@@ -57,6 +57,11 @@ export type ApiResult<T> = {
     meta?: ApiMeta;
 };
 
+export type ClientLineItem = {id: string; description: string; qty: string; unit_price: string; amount: string; position: number};
+
+export type ClientSection = {id: string; title: string; position: number; line_items: ClientLineItem[]};
+
+// 報價單：只回傳「客人可見」嘅報價。
 export type ClientQuote = {
     id: string;
     reference_no: string;
@@ -67,9 +72,21 @@ export type ClientQuote = {
     discount: string;
     total: string;
     notes: string | null;
-    quotation_visible: boolean;
-    invoice_visible: boolean;
-    invoice_no: string | null; // 只有 invoice_visible 先有值
-    due_date: string | null; // YYYY-MM-DD，只有 invoice_visible 先有值
-    sections: Array<{id: string; title: string; position: number; line_items: Array<{id: string; description: string; qty: string; unit_price: string; amount: string; position: number}>}>;
+    sections: ClientSection[];
+};
+
+// 發票：獨立資源，有自己嘅分類同細項；只回傳「客人可見」嘅發票。
+export type ClientInvoice = {
+    id: string;
+    invoice_no: string;
+    quote_reference_no: string | null; // 選填：來源報價編號
+    customer_name: string;
+    contact_person: string | null;
+    customer_phone: string | null;
+    subtotal: string;
+    discount: string;
+    total: string;
+    due_date: string; // YYYY-MM-DD
+    notes: string | null;
+    sections: ClientSection[];
 };

@@ -15,7 +15,7 @@ export const QuotePdfDocument = (props: {model: PdfModel}) => {
     const {model} = props;
     return (
         <Document
-            title={model.header.invoiceNo !== null ? `發票 ${model.header.invoiceNo}` : `報價單 ${model.header.referenceNo}`}
+            title={model.header.invoiceNo !== null ? `發票 ${model.header.invoiceNo}` : `報價單 ${model.header.referenceNo ?? ""}`}
             author={COMPANY.nameZh}
             creator={COMPANY.nameZh}
             producer={COMPANY.nameZh}

@@ -47,10 +47,12 @@ export const PdfHeader = (props: {header: PdfModel["header"]}) => {
                             <Text style={s.infoValue}>{header.invoiceNo}</Text>
                         </View>
                     ) : null}
-                    <View style={s.infoRow}>
-                        <Text style={s.infoLabelRight}>報價參考編號:</Text>
-                        <Text style={s.infoValue}>{header.referenceNo}</Text>
-                    </View>
+                    {header.referenceNo !== null ? (
+                        <View style={s.infoRow}>
+                            <Text style={s.infoLabelRight}>報價參考編號:</Text>
+                            <Text style={s.infoValue}>{header.referenceNo}</Text>
+                        </View>
+                    ) : null}
                     <View style={s.infoRow}>
                         <Text style={s.infoLabelRight}>日期:</Text>
                         <Text style={s.infoValue}>{header.issuedOn}</Text>

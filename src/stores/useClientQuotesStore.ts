@@ -1,5 +1,6 @@
 import {create} from "zustand";
 import {clientGet, toApiError} from "@/api/clientApi";
+import {hasLineItems, sortSections} from "@/utils/documentSections";
 import type {ClientQuote} from "@/types/progress";
 
 interface ClientQuotesState {
@@ -13,12 +14,7 @@ let controller: AbortController | null = null;
 
 // 排序，並略過冇細項嘅報價（PDF 冇內容）
 function normalize(quotes: ClientQuote[]): ClientQuote[] {
-    return quotes
-        .map(quote => ({
-            ...quote,
-            sections: [...(quote.sections ?? [])].sort((a, b) => a.position - b.position).map(section => ({...section, line_items: [...section.line_items].sort((a, b) => a.position - b.position)})),
-        }))
-        .filter(quote => quote.sections.some(section => section.line_items.length > 0));
+    return quotes.map(quote => ({...quote, sections: sortSections(quote.sections)})).filter(quote => hasLineItems(quote.sections));
 }
 
 export const useClientQuotesStore = create<ClientQuotesState>(set => ({
