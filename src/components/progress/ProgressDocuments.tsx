@@ -75,7 +75,7 @@ export const ProgressDocuments = (props: Props) => {
             )}
             <div className="flex flex-col gap-8">
                 {renderGroup("報價單", quoteRows)}
-                {renderGroup("發票", invoiceRows)}
+                {renderGroup("發票單", invoiceRows)}
             </div>
         </section>
     );
