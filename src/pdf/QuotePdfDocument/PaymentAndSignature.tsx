@@ -4,10 +4,12 @@ import {COMPANY, INVOICE_PAYMENT} from "@/constants/company";
 import {formatDateOnly} from "@/utils/dates";
 import {toPdfText} from "../cjkLineBreak";
 import {pdfStyles as s} from "../pdfStyles";
+import {RichTextPdf} from "./RichTextPdf";
+import type {RichRow} from "@/utils/richText";
 
 // 發票第二頁：付款詳情＋公司簽署。
-export const PaymentAndSignature = (props: {issuedOn: string; dueDate: string}) => {
-    const {issuedOn, dueDate} = props;
+export const PaymentAndSignature = (props: {issuedOn: string; dueDate: string; custom: RichRow[] | null}) => {
+    const {issuedOn, dueDate, custom} = props;
     const items = [
         [`此發票/賬單之到期日為 ${formatDateOnly(dueDate)}。`],
         [`支票須劃線，並註明收款人為 ${INVOICE_PAYMENT.payee}。`],
@@ -22,7 +24,8 @@ export const PaymentAndSignature = (props: {issuedOn: string; dueDate: string}) 
     return (
         <View>
             <Text style={s.termsTitle}>付款詳情</Text>
-            {items.map(lines => (
+            {custom ? <RichTextPdf rows={custom} /> : null}
+            {(custom ? [] : items).map(lines => (
                 <View key={lines[0]} style={s.paymentRow} wrap={false}>
                     <Text style={s.paymentBullet}>•</Text>
                     <View style={s.paymentBody}>

@@ -3,13 +3,16 @@ import {Text, View} from "@react-pdf/renderer";
 import {COMPANY, QUOTE_SIGN_OFF, QUOTE_TERMS} from "@/constants/company";
 import {toPdfText} from "../cjkLineBreak";
 import {pdfStyles as s} from "../pdfStyles";
+import {RichTextPdf} from "./RichTextPdf";
+import type {RichRow} from "@/utils/richText";
 
-export const TermsAndSignature = (props: {issuedOn: string}) => {
-    const {issuedOn} = props;
+export const TermsAndSignature = (props: {issuedOn: string; custom: RichRow[] | null}) => {
+    const {issuedOn, custom} = props;
     return (
         <View>
             <Text style={s.termsTitle}>條款及細則</Text>
-            {QUOTE_TERMS.map((term, index) => (
+            {custom ? <RichTextPdf rows={custom} /> : null}
+            {(custom ? [] : QUOTE_TERMS).map((term, index) => (
                 <View key={term.title} style={s.termRow} wrap={false}>
                     <Text style={s.termNumber}>{index + 1}.</Text>
                     <Text style={s.termBody}>

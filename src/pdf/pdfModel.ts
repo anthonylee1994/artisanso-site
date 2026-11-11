@@ -1,15 +1,16 @@
 import type {ClientInvoice, ClientQuote} from "@/types/progress";
 import {formatMoney, formatQty, isZeroMoney} from "@/utils/money";
+import {parseRichText, type RichRow} from "@/utils/richText";
 import {toPdfText} from "./cjkLineBreak";
 
 // 型別層面只接收 PDF 需要的欄位：沒有 id 等。
-export type QuotePdfSource = Pick<ClientQuote, "reference_no" | "customer_name" | "contact_person" | "customer_phone" | "subtotal" | "discount" | "total" | "notes"> & {
+export type QuotePdfSource = Pick<ClientQuote, "reference_no" | "customer_name" | "contact_person" | "customer_phone" | "subtotal" | "discount" | "total" | "notes" | "terms"> & {
     sections: Array<{title: string; line_items: Array<{description: string; unit_price: string; qty: string; amount: string}>}>;
 };
 
 export type InvoicePdfSource = Pick<
     ClientInvoice,
-    "invoice_no" | "quote_reference_no" | "due_date" | "customer_name" | "contact_person" | "customer_phone" | "subtotal" | "discount" | "total" | "notes"
+    "invoice_no" | "quote_reference_no" | "due_date" | "customer_name" | "contact_person" | "customer_phone" | "subtotal" | "discount" | "total" | "notes" | "payment_details"
 > & {
     sections: QuotePdfSource["sections"];
 };
@@ -21,6 +22,8 @@ export type PdfModel = {
     totals: Array<{label: string; value: string}>;
     notes: string | null;
     invoice: {dueDate: string} | null;
+    // 自訂條款（報價單）／付款詳情（發票）；null 即用默認文字。
+    custom: RichRow[] | null;
 };
 
 type PdfBody = Pick<PdfModel, "sections" | "totals" | "notes">;
@@ -55,6 +58,7 @@ export function buildQuotePdfModel(quote: QuotePdfSource, issuedOn: string): Pdf
         },
         ...buildBody(quote),
         invoice: null,
+        custom: parseRichText(quote.terms),
     };
 }
 
@@ -70,5 +74,6 @@ export function buildInvoicePdfModel(invoice: InvoicePdfSource, issuedOn: string
         },
         ...buildBody(invoice),
         invoice: {dueDate: invoice.due_date},
+        custom: parseRichText(invoice.payment_details),
     };
 }

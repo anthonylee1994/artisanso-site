@@ -40,7 +40,11 @@ export const QuotePdfDocument = (props: {model: PdfModel}) => {
             <Page size="A4" style={s.page}>
                 <PdfHeader header={model.header} />
                 <View style={s.body}>
-                    {model.invoice ? <PaymentAndSignature issuedOn={model.header.issuedOn} dueDate={model.invoice.dueDate} /> : <TermsAndSignature issuedOn={model.header.issuedOn} />}
+                    {model.invoice ? (
+                        <PaymentAndSignature issuedOn={model.header.issuedOn} dueDate={model.invoice.dueDate} custom={model.custom} />
+                    ) : (
+                        <TermsAndSignature issuedOn={model.header.issuedOn} custom={model.custom} />
+                    )}
                 </View>
                 <PdfFooter />
             </Page>

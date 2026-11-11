@@ -72,6 +72,7 @@ export type ClientQuote = {
     discount: string;
     total: string;
     notes: string | null;
+    terms: string | null; // rich text HTML；null 即用默認條款
     sections: ClientSection[];
 };
 
@@ -88,5 +89,6 @@ export type ClientInvoice = {
     total: string;
     due_date: string; // YYYY-MM-DD
     notes: string | null;
+    payment_details: string | null; // rich text HTML；null 即用默認付款詳情
     sections: ClientSection[];
 };

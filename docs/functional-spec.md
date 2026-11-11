@@ -223,7 +223,8 @@ Once active, the page shows `ProjectSummary` + `ProgressTabs` + the matching tab
 - `PdfModel` (`pdfModel.ts`) copies only the needed fields, so internal fields such as `id` never enter the model. Amounts are formatted directly from the API strings and **never recalculated**.
 - Totals: 「淨額總計」 (subtotal) → 「折扣 -x」 (discount, only when non-zero) → 「折實總計」 (total).
 - Missing `contact_person` / `customer_phone` render as `-`. A missing invoice `quote_reference_no` omits the 「報價參考編號」 line.
-- Company letterhead and terms are hard-coded in `src/constants/company.ts`; edit that file to change them.
+- When the API returns `terms` (quotation) or `payment_details` (invoice) as rich-text HTML (only paragraphs, bold, and bullet/numbered lists), page 2 prints them instead of the default terms or payment details; `utils/richText.ts` parses the HTML into rows and `RichTextPdf` draws them. `null` or empty means the default text.
+- Company letterhead and default terms are hard-coded in `src/constants/company.ts`; edit that file to change them.
 - CJK font: Noto Sans TC (Regular/Bold, `src/assets/fonts`, `registerFonts`); `cjkLineBreak.ts#toPdfText` handles CJK line breaking.
 
 #### Money Utilities (`utils/money.ts`)
