@@ -220,6 +220,7 @@ Once active, the page shows `ProjectSummary` + `ProgressTabs` + the matching tab
 - A4 portrait, two pages:
     1. Header + items table (sections numbered; empty sections are skipped and do not consume a number) + totals + notes (only when present).
     2. Quotation: terms and signature (`QUOTE_TERMS`, `QUOTE_SIGN_OFF`). Invoice: payment details (`INVOICE_PAYMENT`: payee, bank, account, 2% late interest) and due date.
+- Both signature blocks print the company signature and stamp on the company side (`src/assets/signature/`).
 - `PdfModel` (`pdfModel.ts`) copies only the needed fields, so internal fields such as `id` never enter the model. Amounts are formatted directly from the API strings and **never recalculated**.
 - Totals: 「淨額總計」 (subtotal) → 「折扣 -x」 (discount, only when non-zero) → 「折實總計」 (total).
 - Missing `contact_person` / `customer_phone` render as `-`. A missing invoice `quote_reference_no` omits the 「報價參考編號」 line.

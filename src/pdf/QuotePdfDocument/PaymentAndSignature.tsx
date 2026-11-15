@@ -1,11 +1,12 @@
-import React from "react";
-import {Text, View} from "@react-pdf/renderer";
+import {Image, Text, View} from "@react-pdf/renderer";
 import {COMPANY, INVOICE_PAYMENT} from "@/constants/company";
 import {formatDateOnly} from "@/utils/dates";
 import {toPdfText} from "../cjkLineBreak";
 import {pdfStyles as s} from "../pdfStyles";
 import {RichTextPdf} from "./RichTextPdf";
 import type {RichRow} from "@/utils/richText";
+import signUrl from "@/assets/signature/sign.png?url";
+import stampUrl from "@/assets/signature/stamp.png?url";
 
 // 發票第二頁：付款詳情＋公司簽署。
 export const PaymentAndSignature = (props: {issuedOn: string; dueDate: string; custom: RichRow[] | null}) => {
@@ -41,7 +42,10 @@ export const PaymentAndSignature = (props: {issuedOn: string; dueDate: string; c
                     <View style={s.signatureColumn}>
                         <Text>代表</Text>
                         <Text>{COMPANY.nameZh}</Text>
-                        <View style={s.signatureSpace} />
+                        <View style={s.signatureMarks}>
+                            <Image src={signUrl} style={s.signImage} />
+                            <Image src={stampUrl} style={s.stamp} />
+                        </View>
                         <View style={s.signatureLine}>
                             <Text>授權簽署</Text>
                             <Text>
