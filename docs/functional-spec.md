@@ -46,7 +46,7 @@ Defined in `src/main.tsx`.
 
 Leak-prevention measures for `/progress`:
 
-- `vercel.json` adds `Referrer-Policy: no-referrer`, `X-Content-Type-Options: nosniff`, `X-Robots-Tag: noindex, nofollow, noarchive`, and a CSP (`img-src` allows only `self`, `data:`, `https://img.eservice-hk.net`; `connect-src` allows only `self`, `data:`, `https://api.artisanso.com`; `script-src` includes `'wasm-unsafe-eval'` for PDF rendering; `frame-ancestors 'none'`).
+- `vercel.json` adds `Referrer-Policy: no-referrer`, `X-Content-Type-Options: nosniff`, `X-Robots-Tag: noindex, nofollow, noarchive`, and a CSP (`img-src` allows only `self`, `data:`, `https://img.eservice-hk.net`; `connect-src` allows only `self`, `data:`, `https://api.artisanso.com`; `script-src` includes `'wasm-unsafe-eval'` and `worker-src` allows `'self' blob:` for PDF rendering; `frame-ancestors 'none'`).
 - `ProgressLayout` adds `<meta name="robots">` and `<meta name="referrer" content="no-referrer">`.
 - `public/robots.txt` has `Disallow: /progress`.
 
