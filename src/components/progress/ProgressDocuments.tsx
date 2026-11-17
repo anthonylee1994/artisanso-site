@@ -47,13 +47,13 @@ export const ProgressDocuments = (props: Props) => {
     const renderGroup = (heading: string, rows: Row[]) =>
         rows.length === 0 ? null : (
             <div>
-                <h3 className="mb-2 text-lg font-semibold text-brand">{heading}</h3>
-                <ul className="divide-y divide-brand/15 border-y border-brand/15">
+                <h3 className="text-brand mb-2 text-lg font-semibold">{heading}</h3>
+                <ul className="divide-brand/15 border-brand/15 divide-y border-y">
                     {rows.map(row => (
                         <li key={row.key} className="flex flex-wrap items-center justify-between gap-4 py-5">
                             <div>
-                                <p className="font-semibold text-brand">{row.title}</p>
-                                <p className="text-sm text-brand-light">{row.subtitle}</p>
+                                <p className="text-brand font-semibold">{row.title}</p>
+                                <p className="text-brand-light text-sm">{row.subtitle}</p>
                             </div>
                             <button type="button" disabled={busy !== null} onClick={() => void download(row)} className={BUTTON_CLASS}>
                                 <LuDownload aria-hidden="true" />

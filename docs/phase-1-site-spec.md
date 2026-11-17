@@ -88,10 +88,10 @@ artisanso-site/
 
 - 一段簡短介紹（約 80–120 字），內容待客戶提供，暫用 placeholder
 - 賣點 Grid（icon + 標題 + 一句說明），暫定：
-    1. 免費上門度尺報價
-    2. 價錢透明，無隱藏收費
-    3. 專業師傅團隊
-    4. 服務大埔 / 荃灣 / 元朗
+  1. 免費上門度尺報價
+  2. 價錢透明，無隱藏收費
+  3. 專業師傅團隊
+  4. 服務大埔 / 荃灣 / 元朗
 
 ### 4.3 作品展示（Show Case Gallery）
 
@@ -125,11 +125,11 @@ export type Project = {
 - 每個 Project 一張 Card：封面 = `images[0]`，下面顯示項目名稱 + 分類 tag + 相數（例：`6 張`）
 - Card Grid：Mobile 1 欄 / Tablet 2 欄 / Desktop 3 欄
 - 點擊 Card → 開 Lightbox：
-    - 顯示該項目全部圖片
-    - 左右箭嘴 + 鍵盤 `←` `→` + `Esc` 關閉
-    - Mobile 支援 swipe
-    - 顯示項目名稱 + `3 / 8` 頁碼
-    - 開啟時鎖住 body scroll，關閉後 focus 返回觸發嘅 Card
+  - 顯示該項目全部圖片
+  - 左右箭嘴 + 鍵盤 `←` `→` + `Esc` 關閉
+  - Mobile 支援 swipe
+  - 顯示項目名稱 + `3 / 8` 頁碼
+  - 開啟時鎖住 body scroll，關閉後 focus 返回觸發嘅 Card
 - 圖片 `loading="lazy"`、加 `width` / `height` 或 `aspect-*` 避免 layout shift
 
 **分類（暫定，可改）**：住宅翻新 / 商舖及辦公室 / 餐飲空間 / 村屋及洋房
@@ -191,10 +191,10 @@ function buildWhatsAppUrl(values: QuoteFormValues): string {
 
 - 風格：專業、穩陣、有質感（唔好太花）
 - 色板（暫定，寫入 Tailwind `@theme`）：
-    - `--color-brand`：深木色 / 炭灰（主色）
-    - `--color-accent`：暖銅金（CTA、Active 狀態）
-    - `--color-surface`：米白底
-    - WhatsApp 按鈕固定用 WhatsApp 綠 `#25D366`
+  - `--color-brand`：深木色 / 炭灰（主色）
+  - `--color-accent`：暖銅金（CTA、Active 狀態）
+  - `--color-surface`：米白底
+  - WhatsApp 按鈕固定用 WhatsApp 綠 `#25D366`
 - 字體：系統中文字體 stack（`"PingFang HK", "Noto Sans TC", "Microsoft JhengHei", sans-serif`），唔載入 web font 以保速度
 - Mobile First；斷點用 Tailwind 預設（`md` / `lg`）
 - 按鈕最小點擊面積 44×44px

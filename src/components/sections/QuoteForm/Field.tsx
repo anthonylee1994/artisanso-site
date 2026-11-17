@@ -12,7 +12,7 @@ type FieldProps = {
 export const Field = (props: FieldProps) => {
     return (
         <div>
-            <label htmlFor={props.id} className="mb-2 block text-sm font-semibold tracking-wide text-brand">
+            <label htmlFor={props.id} className="text-brand mb-2 block text-sm font-semibold tracking-wide">
                 {props.label}
                 {props.required && <span className="ml-1 text-red-600">*</span>}
             </label>

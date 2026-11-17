@@ -18,7 +18,7 @@ UI copy quoted in this document (in 「」) is the exact Chinese text shown to u
 
 ### 1.1 Tech Stack
 
-React 19, TypeScript, Vite 8, Tailwind CSS v4, `vite-react-ssg` (SSG), `react-router-dom` 6, `zustand` (state), `@react-pdf/renderer` (PDF), `react-icons`, Prettier. Deployed on Vercel (`vercel.json`).
+React 19, TypeScript, Vite 8, Tailwind CSS v4, `vite-react-ssg` (SSG), `react-router-dom` 6, `zustand` (state), `@react-pdf/renderer` (PDF), `react-icons`, Biome (formatter + Tailwind class sorting; config `biome.json`), oxlint. Deployed on Vercel (`vercel.json`).
 
 ### 1.2 Scripts
 
@@ -26,7 +26,7 @@ React 19, TypeScript, Vite 8, Tailwind CSS v4, `vite-react-ssg` (SSG), `react-ro
 | ------------- | ---------------------------------------- |
 | `pnpm dev`    | Dev server                               |
 | `pnpm build`  | `vite-react-ssg build`, pre-renders HTML |
-| `pnpm format` | Prettier                                 |
+| `pnpm format` | `biome check --write .`                  |
 
 ### 1.3 Environment Variables
 
@@ -78,12 +78,12 @@ Static content: "40 years of renovation experience", a company introduction, and
 - Data comes from `useProjects()` (see §5.1). `loading` / `success` / `error` show a spinner / the projects / 「暫時未能載入作品，請稍後再試。」 ("Unable to load projects, please try again later.").
 - Category filter: 「全部」(All) plus the `CATEGORIES` that **have projects** (`useShowcaseStore.categoryId`).
 
-    | id        | Name         |
-    | --------- | ------------ |
-    | `home`    | 住宅裝修     |
-    | `office`  | 商舖及辦公室 |
-    | `factory` | 傢俬廠房     |
-    | `village` | 村屋及洋房   |
+  | id        | Name         |
+  | --------- | ------------ |
+  | `home`    | 住宅裝修     |
+  | `office`  | 商舖及辦公室 |
+  | `factory` | 傢俬廠房     |
+  | `village` | 村屋及洋房   |
 
 - Clicking a project card (`ProjectCard`) opens the Lightbox.
 
@@ -195,31 +195,31 @@ Once active, the page shows `ProjectSummary` + `ProgressTabs` + the matching tab
 - `fetchAllComments`: 100 per page (`PER_PAGE`), at most 10 pages (`MAX_PAGES`). Beyond that, `truncated = true` and the UI shows 「只顯示最早 1000 則」 ("Showing only the earliest 1000"). Comments display in server order.
 - `CommentThread`: `role="log"`; `author_role === "client"` aligns right (labeled 「你」 "You"), otherwise left (labeled 「匠方工程」); with no comments it shows 「有任何問題，歡迎在下方留言。」; it scrolls to the bottom after sending.
 - `CommentComposer`:
-    - Content must be 1–2000 characters after trim; Ctrl/Cmd + Enter sends; disabled while sending; hint 「留言送出後無法修改或刪除」 ("Comments cannot be edited or deleted once sent").
-    - The draft is owned by `ProgressPage`, so switching tabs does not lose it.
-    - `POST /comments` with body `{comment: {body}}`.
-    - Outcomes (`SendResult`):
-        - `sent`: clears the draft, reloads comments, scrolls to the bottom.
-        - `maybe_sent` (network error / 5xx): refetches first; if the latest client comment's body equals the one sent, it is treated as sent (draft cleared). **No automatic retry.** Otherwise `failed`.
-        - `422`: shows the backend `details.body` error, or 「留言內容無效，請檢查後再試。」 if missing.
-        - `429`: counts down from `Retry-After` (60 seconds if missing) and shows 「留言太頻密，請 N 秒後再試。」
-        - `401`: handled by `access.reject()`.
-        - Anything else: 「暫時未能送出，請稍後重試。」
+  - Content must be 1–2000 characters after trim; Ctrl/Cmd + Enter sends; disabled while sending; hint 「留言送出後無法修改或刪除」 ("Comments cannot be edited or deleted once sent").
+  - The draft is owned by `ProgressPage`, so switching tabs does not lose it.
+  - `POST /comments` with body `{comment: {body}}`.
+  - Outcomes (`SendResult`):
+    - `sent`: clears the draft, reloads comments, scrolls to the bottom.
+    - `maybe_sent` (network error / 5xx): refetches first; if the latest client comment's body equals the one sent, it is treated as sent (draft cleared). **No automatic retry.** Otherwise `failed`.
+    - `422`: shows the backend `details.body` error, or 「留言內容無效，請檢查後再試。」 if missing.
+    - `429`: counts down from `Retry-After` (60 seconds if missing) and shows 「留言太頻密，請 N 秒後再試。」
+    - `401`: handled by `access.reject()`.
+    - Anything else: 「暫時未能送出，請稍後重試。」
 
 ### 4.9 Documents (Quotation / Invoice PDFs)
 
 - Quotes and invoices are the documents the API marks as client-visible. The store's `normalize` sorts sections and line items by `position` and **drops documents with no line items** (`utils/documentSections`).
 - `ProgressDocuments` has two groups, 「報價單」 (quotations) and 「發票單」 (invoices). Each row shows the number (`reference_no` / `invoice_no`), the customer name (invoices also show the due date), and a download button. All buttons are disabled while one download runs; failure shows 「文件產生失敗，請重試。」
 - Download (`pdf/downloadQuotePdf.ts`):
-    - The PDF module, `@react-pdf/renderer`, and fonts are loaded only via dynamic import and are not in the main bundle.
-    - Triggered with a `Blob` + `<a download>`; filenames are `quotation-<reference_no>.pdf` / `invoice-<invoice_no>.pdf` (characters outside `[A-Za-z0-9._-]` become `-`).
-    - Issue date = today's Hong Kong date (`todayInHongKong`, `Asia/Hong_Kong`).
+  - The PDF module, `@react-pdf/renderer`, and fonts are loaded only via dynamic import and are not in the main bundle.
+  - Triggered with a `Blob` + `<a download>`; filenames are `quotation-<reference_no>.pdf` / `invoice-<invoice_no>.pdf` (characters outside `[A-Za-z0-9._-]` become `-`).
+  - Issue date = today's Hong Kong date (`todayInHongKong`, `Asia/Hong_Kong`).
 
 #### PDF Content (`src/pdf`)
 
 - A4 portrait, two pages:
-    1. Header + items table (sections numbered; empty sections are skipped and do not consume a number) + totals + notes (only when present).
-    2. Quotation: terms and signature (`QUOTE_TERMS`, `QUOTE_SIGN_OFF`). Invoice: payment details (`INVOICE_PAYMENT`: payee, bank, account, 2% late interest) and due date.
+  1. Header + items table (sections numbered; empty sections are skipped and do not consume a number) + totals + notes (only when present).
+  2. Quotation: terms and signature (`QUOTE_TERMS`, `QUOTE_SIGN_OFF`). Invoice: payment details (`INVOICE_PAYMENT`: payee, bank, account, 2% late interest) and due date.
 - Both signature blocks print the company signature and stamp on the company side (`src/assets/signature/`).
 - `PdfModel` (`pdfModel.ts`) copies only the needed fields, so internal fields such as `id` never enter the model. Amounts are formatted directly from the API strings and **never recalculated**.
 - Totals: 「淨額總計」 (subtotal) → 「折扣 -x」 (discount, only when non-zero) → 「折實總計」 (total).

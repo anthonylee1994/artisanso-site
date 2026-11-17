@@ -64,7 +64,7 @@ export const CommentComposer = (props: CommentComposerProps) => {
     const errorText = error === "rate_limited" ? (locked ? `留言太頻密，請 ${countdown.remaining} 秒後再試。` : "") : error;
 
     return (
-        <form onSubmit={onSubmit} className="mt-8 rounded-lg border border-brand/10 bg-white p-5 shadow-sm md:p-6" noValidate>
+        <form onSubmit={onSubmit} className="border-brand/10 mt-8 rounded-lg border bg-white p-5 shadow-sm md:p-6" noValidate>
             <label htmlFor="comment-body" className="mb-2 block text-sm font-semibold tracking-wide">
                 留言
             </label>
@@ -77,9 +77,9 @@ export const CommentComposer = (props: CommentComposerProps) => {
                 rows={4}
                 aria-describedby="comment-hint comment-error"
                 aria-invalid={Boolean(errorText) || body.length > MAX_LENGTH}
-                className="min-h-12 w-full rounded-md border border-brand/20 bg-surface/60 px-4 py-2 transition-colors focus:border-accent focus:bg-white focus:ring-2 focus:ring-accent/30 focus:outline-none disabled:opacity-60"
+                className="border-brand/20 bg-surface/60 focus:border-accent focus:ring-accent/30 min-h-12 w-full rounded-md border px-4 py-2 transition-colors focus:bg-white focus:ring-2 focus:outline-none disabled:opacity-60"
             />
-            <div className="mt-1 flex justify-between text-xs text-brand-light">
+            <div className="text-brand-light mt-1 flex justify-between text-xs">
                 <span id="comment-hint">留言送出後無法修改或刪除。</span>
                 <span className={body.length > MAX_LENGTH ? "text-red-700" : ""}>
                     {body.length} / {MAX_LENGTH}
@@ -91,7 +91,7 @@ export const CommentComposer = (props: CommentComposerProps) => {
             <button
                 type="submit"
                 disabled={!canSend}
-                className="mt-3 min-h-12 rounded-md bg-accent px-8 font-semibold text-white transition hover:bg-accent-dark disabled:cursor-not-allowed disabled:opacity-50"
+                className="bg-accent hover:bg-accent-dark mt-3 min-h-12 rounded-md px-8 font-semibold text-white transition disabled:cursor-not-allowed disabled:opacity-50"
             >
                 {sending ? "送出中…" : "送出"}
             </button>

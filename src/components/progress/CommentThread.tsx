@@ -21,11 +21,11 @@ export const CommentThread = (props: CommentThreadProps) => {
     return (
         <div>
             <div className="mb-3 flex items-center justify-between">
-                <p className="text-sm text-brand-light" aria-live="polite">
+                <p className="text-brand-light text-sm" aria-live="polite">
                     {props.failed ? "暫時未能載入留言，請稍後重試。" : ""}
                 </p>
             </div>
-            {props.truncated && <p className="mb-3 text-sm text-brand-light">只顯示最早 1000 則</p>}
+            {props.truncated && <p className="text-brand-light mb-3 text-sm">只顯示最早 1000 則</p>}
             <div role="log" aria-live="polite" aria-busy={!props.loaded} aria-label="留言記錄" className="flex flex-col gap-4">
                 {props.loaded && props.comments.length === 0 && <p className="text-brand-light">有任何問題，歡迎在下方留言。</p>}
                 {props.comments.map(comment => {
@@ -33,7 +33,7 @@ export const CommentThread = (props: CommentThreadProps) => {
                     return (
                         <div key={comment.id} className={`flex ${mine ? "justify-end" : "justify-start"}`}>
                             <div
-                                className={`max-w-[85%] px-5 py-3 md:max-w-[75%] ${mine ? "rounded-2xl rounded-br-sm bg-brand text-white" : "rounded-2xl rounded-bl-sm border border-brand/10 bg-white shadow-sm"}`}
+                                className={`max-w-[85%] px-5 py-3 md:max-w-[75%] ${mine ? "bg-brand rounded-2xl rounded-br-sm text-white" : "border-brand/10 rounded-2xl rounded-bl-sm border bg-white shadow-sm"}`}
                             >
                                 <p className={`text-xs ${mine ? "text-white/60" : "text-brand-light"}`}>
                                     <span className="font-semibold">{mine ? "你" : "匠方工程"}</span>

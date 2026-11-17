@@ -77,7 +77,7 @@ export const ProgressPage = () => {
                         id={panelId(active)}
                         aria-labelledby={tabId(active)}
                         tabIndex={0}
-                        className="focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+                        className="focus-visible:outline-accent focus-visible:outline-2 focus-visible:outline-offset-4"
                     >
                         {active === "milestones" && <MilestoneTimeline milestones={project.project.milestones} />}
                         {active === "photos" && <ProgressPhotos project={project.project} />}
@@ -104,7 +104,7 @@ export const ProgressPage = () => {
             return (
                 <div role="alert" className="text-center">
                     <p className="mb-4">暫時未能載入，請稍後重試。</p>
-                    <button type="button" onClick={project.reload} className="min-h-11 rounded-md bg-accent px-6 font-semibold text-white hover:bg-accent-dark">
+                    <button type="button" onClick={project.reload} className="bg-accent hover:bg-accent-dark min-h-11 rounded-md px-6 font-semibold text-white">
                         重試
                     </button>
                 </div>

@@ -21,13 +21,13 @@ export const MilestoneItem = (props: {milestone: ClientMilestone; last: boolean}
             <div className="relative z-10 shrink-0">
                 <Marker status={milestone.status} />
             </div>
-            <div className={`min-w-0 flex-1 rounded-lg ${active ? "border border-accent/30 bg-white p-5 shadow-sm" : "py-1"}`}>
-                <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-brand-light">
-                    <span className={active ? "font-semibold text-accent" : ""}>{STATUS_LABEL[milestone.status]}</span>
+            <div className={`min-w-0 flex-1 rounded-lg ${active ? "border-accent/30 border bg-white p-5 shadow-sm" : "py-1"}`}>
+                <p className="text-brand-light flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+                    <span className={active ? "text-accent font-semibold" : ""}>{STATUS_LABEL[milestone.status]}</span>
                     {date && <span>{date}</span>}
                 </p>
                 <h3 className={`mt-1 text-xl wrap-break-word md:text-2xl ${milestone.status === "pending" ? "text-brand-light" : "font-semibold"}`}>{milestone.title}</h3>
-                {milestone.client_summary && <p className="mt-3 leading-7 wrap-break-word whitespace-pre-line text-brand-light">{milestone.client_summary}</p>}
+                {milestone.client_summary && <p className="text-brand-light mt-3 leading-7 wrap-break-word whitespace-pre-line">{milestone.client_summary}</p>}
             </div>
         </li>
     );

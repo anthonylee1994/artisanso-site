@@ -35,20 +35,20 @@ export const Hero = () => {
             onFocus={() => carousel.setPaused(true)}
             onBlur={() => carousel.setPaused(false)}
             {...carousel.swipeHandlers}
-            className="relative flex min-h-[85svh] touch-pan-y scroll-mt-16 flex-col justify-end overflow-clip bg-brand text-white"
+            className="bg-brand relative flex min-h-[85svh] touch-pan-y scroll-mt-16 flex-col justify-end overflow-clip text-white"
         >
             {list.map((item, i) => (
                 <HeroSlide key={item.id} slide={item} position={i} count={count} active={i === current} near={isNear(i)} />
             ))}
 
-            <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-linear-to-t from-brand/95 via-brand/30 to-brand/30" />
+            <div aria-hidden="true" className="from-brand/95 via-brand/30 to-brand/30 pointer-events-none absolute inset-0 bg-linear-to-t" />
 
             <div className="hero-exit relative px-4 pt-32 pb-6 md:px-16 md:pb-10">
                 <div aria-live={carousel.paused ? "polite" : "off"}>
                     <div key={slide.id} className="animate-hero-rise motion-reduce:animate-none">
                         {slide.district && (
                             <p className="mb-4 flex items-center gap-2 text-sm tracking-[0.3em] text-white/90 md:text-lg">
-                                <span aria-hidden="true" className="h-px w-10 origin-left animate-hero-line bg-accent motion-reduce:animate-none" />
+                                <span aria-hidden="true" className="animate-hero-line bg-accent h-px w-10 origin-left motion-reduce:animate-none" />
                                 {slide.district}
                             </p>
                         )}
@@ -57,7 +57,7 @@ export const Hero = () => {
                 </div>
 
                 <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
-                    <a href="#showcase" className="inline-flex min-h-12 items-center gap-2 rounded-md bg-accent px-8 font-semibold text-white transition-colors hover:bg-accent-dark">
+                    <a href="#showcase" className="bg-accent hover:bg-accent-dark inline-flex min-h-12 items-center gap-2 rounded-md px-8 font-semibold text-white transition-colors">
                         瀏覽作品
                         <LuArrowDown aria-hidden="true" className="h-4 w-4" />
                     </a>

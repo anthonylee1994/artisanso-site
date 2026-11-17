@@ -209,7 +209,7 @@ export const Lightbox = (props: LightboxProps) => {
             aria-modal="true"
             aria-label={project.name}
             onKeyDown={onKeyDown}
-            className="lightbox-root fixed inset-0 flex animate-lightbox-fade flex-col bg-black motion-reduce:animate-none"
+            className="lightbox-root animate-lightbox-fade fixed inset-0 flex flex-col bg-black motion-reduce:animate-none"
         >
             <div className="flex items-center justify-between gap-4 px-4 py-4 text-white">
                 <div className="min-w-0">

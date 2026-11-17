@@ -36,7 +36,7 @@ export const ProgressTabs = (props: ProgressTabsProps) => {
     };
 
     return (
-        <div ref={listRef} role="tablist" aria-label="工程進度分頁" onKeyDown={onKeyDown} className="mb-10 flex gap-8 border-b border-brand/15">
+        <div ref={listRef} role="tablist" aria-label="工程進度分頁" onKeyDown={onKeyDown} className="border-brand/15 mb-10 flex gap-8 border-b">
             {props.tabs.map(tab => {
                 const selected = tab.id === props.active;
                 return (
@@ -49,7 +49,7 @@ export const ProgressTabs = (props: ProgressTabsProps) => {
                         aria-controls={panelId(tab.id)}
                         tabIndex={selected ? 0 : -1}
                         onClick={() => props.onChange(tab.id)}
-                        className={`-mb-px min-h-12 border-b-2 text-lg transition-colors ${selected ? "border-accent font-semibold text-brand" : "border-transparent text-brand-light hover:text-accent"}`}
+                        className={`-mb-px min-h-12 border-b-2 text-lg transition-colors ${selected ? "border-accent text-brand font-semibold" : "text-brand-light hover:text-accent border-transparent"}`}
                     >
                         {tab.label}
                     </button>

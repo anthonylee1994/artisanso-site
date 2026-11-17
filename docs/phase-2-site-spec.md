@@ -169,39 +169,39 @@ clientPost<T>(path, code, body, signal?)    // POST，JSON body
 export type ClientMilestoneStatus = "pending" | "in_progress" | "done";
 
 export type ClientMilestone = {
-  id: string;
-  title: string;
-  status: ClientMilestoneStatus;
-  position: number;
-  due_on: string | null; // YYYY-MM-DD
-  completed_on: string | null; // YYYY-MM-DD
-  client_summary: string | null;
+    id: string;
+    title: string;
+    status: ClientMilestoneStatus;
+    position: number;
+    due_on: string | null; // YYYY-MM-DD
+    completed_on: string | null; // YYYY-MM-DD
+    client_summary: string | null;
 };
 
 export type ClientPhoto = {
-  id: string;
-  url: string;
-  role: "cover" | "gallery";
-  position: number;
+    id: string;
+    url: string;
+    role: "cover" | "gallery";
+    position: number;
 };
 
 export type ClientProject = {
-  title: string;
-  slug: string;
-  category: "home" | "office" | "village" | "factory";
-  district: string | null;
-  status: "lead" | "active";
-  cover_photo: { id: string; url: string } | null;
-  milestones: ClientMilestone[];
-  photos: ClientPhoto[];
+    title: string;
+    slug: string;
+    category: "home" | "office" | "village" | "factory";
+    district: string | null;
+    status: "lead" | "active";
+    cover_photo: {id: string; url: string} | null;
+    milestones: ClientMilestone[];
+    photos: ClientPhoto[];
 };
 
 export type ClientComment = {
-  id: string;
-  author_role: "client" | "staff";
-  author_name: string;
-  body: string;
-  created_at: string; // ISO 8601 UTC
+    id: string;
+    author_role: "client" | "staff";
+    author_name: string;
+    body: string;
+    created_at: string; // ISO 8601 UTC
 };
 ```
 

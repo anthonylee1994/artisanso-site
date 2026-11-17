@@ -14,8 +14,8 @@ export const Header = () => {
     const active = useActiveSection(NAV_ITEMS.map(i => i.id));
 
     return (
-        <header className="sticky top-0 z-30 bg-brand text-white shadow">
-            <div aria-hidden="true" className="scroll-progress pointer-events-none absolute inset-x-0 top-0 z-10 h-0.5 origin-left bg-accent" />
+        <header className="bg-brand sticky top-0 z-30 text-white shadow">
+            <div aria-hidden="true" className="scroll-progress bg-accent pointer-events-none absolute inset-x-0 top-0 z-10 h-0.5 origin-left" />
             <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:grid md:grid-cols-[1fr_auto_1fr]">
                 <a href="#home" className="flex min-h-11 items-center gap-2 text-lg font-bold md:justify-self-start">
                     <img src="/logo.svg" alt="" width={32} height={32} />
@@ -30,7 +30,7 @@ export const Header = () => {
                         <a
                             key={item.id}
                             href={`#${item.id}`}
-                            className={`flex min-h-11 items-center border-b-2 transition ${active === item.id ? "border-accent text-accent" : "border-transparent hover:text-accent"}`}
+                            className={`flex min-h-11 items-center border-b-2 transition ${active === item.id ? "border-accent text-accent" : "hover:text-accent border-transparent"}`}
                         >
                             {item.label}
                         </a>
@@ -65,7 +65,7 @@ export const Header = () => {
                 id="mobile-menu"
                 aria-label="手機選單"
                 inert={!menuOpen}
-                className={`grid bg-brand-light transition-[grid-template-rows,visibility] duration-300 ease-out motion-reduce:transition-none md:hidden ${menuOpen ? "visible grid-rows-[1fr]" : "invisible grid-rows-[0fr]"}`}
+                className={`bg-brand-light grid transition-[grid-template-rows,visibility] duration-300 ease-out motion-reduce:transition-none md:hidden ${menuOpen ? "visible grid-rows-[1fr]" : "invisible grid-rows-[0fr]"}`}
             >
                 <div className="overflow-hidden">
                     <div className="border-t border-white/10 py-2">

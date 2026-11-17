@@ -38,7 +38,7 @@ export const HeroTabs = (props: HeroTabsProps) => {
                                         <span
                                             key={slide.id}
                                             aria-hidden="true"
-                                            className="absolute inset-0 origin-left animate-hero-progress bg-accent motion-reduce:animate-none"
+                                            className="animate-hero-progress bg-accent absolute inset-0 origin-left motion-reduce:animate-none"
                                             style={{animationDuration: `${AUTOPLAY_MS}ms`, animationPlayState: props.paused ? "paused" : "running"}}
                                         />
                                     )}
