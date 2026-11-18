@@ -1,8 +1,8 @@
 import React from "react";
+import {App} from "./pages/IndexPage";
 import {Navigate} from "react-router-dom";
 import {ViteReactSSG} from "vite-react-ssg";
 import {projectsLoader} from "./api/projectsApi";
-import {App} from "./app";
 import {ProgressPage} from "./pages/ProgressPage/index";
 import "./index.css";
 
