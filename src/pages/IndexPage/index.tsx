@@ -8,7 +8,7 @@ import {QuoteForm} from "@/components/sections/QuoteForm";
 import {Showcase} from "@/components/sections/Showcase";
 import {FloatingWhatsApp} from "@/components/ui/FloatingWhatsApp";
 
-export const App = () => {
+export const IndexPage = () => {
     return (
         <React.Fragment>
             <Header />

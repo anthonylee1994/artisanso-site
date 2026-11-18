@@ -1,5 +1,5 @@
 import React from "react";
-import {App} from "./pages/IndexPage";
+import {IndexPage} from "./pages/IndexPage";
 import {Navigate} from "react-router-dom";
 import {ViteReactSSG} from "vite-react-ssg";
 import {projectsLoader} from "./api/projectsApi";
@@ -13,7 +13,7 @@ export const createRoot = ViteReactSSG({
             loader: projectsLoader,
             element: (
                 <React.StrictMode>
-                    <App />
+                    <IndexPage />
                 </React.StrictMode>
             ),
         },
